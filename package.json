@@ -1,0 +1,17 @@
+{
+  "name": "todo-list",
+  "version": "0.0.1",
+  "description": "A productivity application",
+  "main": "index.js",
+  "repository": "https://github.com/shchilkin/todo-list.git",
+  "author": "Aleksandr Shchilkin <crazyredkitten@icloud.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "devDependencies": {
+    "lerna": "^6.1.0"
+  }
+}
