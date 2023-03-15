@@ -25,6 +25,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 res.status(406).json({error: 'User already exists.'})
             }
 
+            // TODO: Implement strong password validation
+
             const newUser = await db.user.create({
                 data: {
                     email: email,
