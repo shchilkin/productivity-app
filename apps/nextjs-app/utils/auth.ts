@@ -2,6 +2,7 @@ import {fetcher} from "@/utils/api/fetcher";
 import bcrypt from "bcrypt";
 import {jwtVerify, SignJWT} from "jose";
 import {db} from "@/utils/db";
+import {User} from "@prisma/client";
 
 
 export const hashPassword = (password: string) => bcrypt.hash(password, 10);
@@ -9,7 +10,7 @@ export const hashPassword = (password: string) => bcrypt.hash(password, 10);
 export const comparePasswords = (plainTextPassword: string, hashedPassword: string) =>
     bcrypt.compare(plainTextPassword, hashedPassword);
 
-export const generateToken = async (user: any) => {
+export const generateToken = async (user: User) => {
     const issuedAtTime = Math.floor(Date.now() / 1000);
     const expiresIn = issuedAtTime + 60 * 60 * 24 * 7; // 7 days
 

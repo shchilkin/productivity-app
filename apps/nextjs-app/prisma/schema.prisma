@@ -23,5 +23,4 @@ model User {
   surname      String
   email        String  @unique
   password     String
-  limitedTODOs Boolean @default(true)
 }
