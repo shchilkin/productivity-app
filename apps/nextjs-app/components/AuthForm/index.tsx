@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { register, signIn } from '@/utils/api/fetcher';
 import Link from 'next/link';
-import Input from '@/components/Input';
 
 interface AuthFormProps {
   type: 'register' | 'sign-in';
@@ -66,28 +65,32 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
       {type === 'register' && <>
         <div className={'flex flex-col w-full pb-4'}>
           <label htmlFor='name'>Name</label>
-          <Input
+          <input
+            className={'border border-gray-300 rounded-md p-2'}
             type='text' name='name' id='name' value={name} onChange={(event) => {
             setName(event.target.value);
           }} />
         </div>
         <div className={'flex flex-col w-full pb-4'}>
           <label htmlFor='surname'>Surname</label>
-          <Input type='text' name='surname' id='surname' value={surname} onChange={(event) => {
+          <input
+            className={'border border-gray-300 rounded-md p-2'}
+            type='text' name='surname' id='surname' value={surname} onChange={(event) => {
             setSurname(event.target.value);
           }} />
         </div>
       </>}
       <div className={'flex flex-col w-full pb-4'}>
         <label htmlFor='email'>Email</label>
-        <Input
-          type='email' name='email' id='email' value={email} onChange={(event) => {
-          setEmail(event.target.value);
-        }} />
+        <input className={'border border-gray-300 rounded-md p-2'} type='email' name='email' id='email' value={email}
+               onChange={(event) => {
+                 setEmail(event.target.value);
+               }} />
       </div>
       <div className={'flex flex-col w-full pb-4'}>
         <label htmlFor='password'>Password</label>
-        <Input type='password' name='password' id='password' value={password} onChange={(event) => {
+        <input className={'border border-gray-300 rounded-md p-2'} type='password' name='password' id='password'
+               value={password} onChange={(event) => {
           setPassword(event.target.value);
         }} />
       </div>

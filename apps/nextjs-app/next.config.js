@@ -4,6 +4,6 @@ const nextConfig = {
     appDir: true,
     serverComponentsExternalPackages: ['bcrypt'],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
