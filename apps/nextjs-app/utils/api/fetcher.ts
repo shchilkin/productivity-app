@@ -8,7 +8,11 @@ export const fetcher = async <T>(url: string, method: string, body: T, json = tr
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
+  }).catch((error) => {
+    throw new Error(error);
   });
+
+  console.log('response', response.ok);
 
   if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
 
@@ -19,6 +23,7 @@ interface SignInCredentials {
   email: string;
   password: string;
 }
+
 export const signIn = (signInCredentials: SignInCredentials) => fetcher<SignInCredentials>('/api/sign-in', 'POST', signInCredentials);
 
 export const register = (user: Omit<User, 'id'>) => fetcher<Omit<User, 'id'>>('/api/register', 'POST', user);

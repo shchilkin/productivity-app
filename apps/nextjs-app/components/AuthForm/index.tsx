@@ -39,21 +39,22 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
   const [surname, setSurname] = useState('');
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     console.log('submit');
     try {
       if (type === 'register') {
         await register({ email: email, password: password, name: name, surname: surname }).then((response) => {
           console.log(response);
+          router.push('/app');
         });
       } else {
         await signIn({ email: email, password: password }).then((response) => {
-          console.log(response);
+          console.log(JSON.stringify(response));
+          router.push('/app');
         });
       }
-      router.push('/app');
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.table({ email: email, password: password, name: name, surname: surname });
+      console.error(error);
     }
   };
 

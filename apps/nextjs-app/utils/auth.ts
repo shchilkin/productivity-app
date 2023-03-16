@@ -16,7 +16,6 @@ export const generateToken = async (user: User) => {
   const issuedAtTime = Math.floor(Date.now() / 1000);
   const expiresIn = issuedAtTime + 60 * 60 * 24 * 7; // 7 days
 
-  // TODO: Type payload
   return new SignJWT({ id: user.id, email: user.email })
     .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
     .setIssuedAt(issuedAtTime)
