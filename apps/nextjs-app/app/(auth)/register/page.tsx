@@ -1,13 +1,11 @@
-"use client";
+'use client';
 
-import AuthForm from "@/components/AuthForm";
+import AuthForm from '@/components/AuthForm';
 
 const Register = () => {
-    return (
-        <div>
-            <AuthForm/>
-        </div>
-    )
-}
+  return (
+    <AuthForm type={'register'} />
+  );
+};
 
 export default Register;

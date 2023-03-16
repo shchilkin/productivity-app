@@ -1,3 +1,5 @@
+import { User } from '@prisma/client';
+
 export const fetcher = async <T>(url: string, method: string, body: T, json = true) => {
   const response = await fetch(url, {
     method,
@@ -18,3 +20,5 @@ interface SignInCredentials {
   password: string;
 }
 export const signIn = (signInCredentials: SignInCredentials) => fetcher<SignInCredentials>('/api/sign-in', 'POST', signInCredentials);
+
+export const register = (user: Omit<User, 'id'>) => fetcher<Omit<User, 'id'>>('/api/register', 'POST', user);

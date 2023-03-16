@@ -41,6 +41,3 @@ export const verifyToken = async (token: string) => {
 //         }
 //     });
 // }
-
-// TODO: Type user
-export const register = (user: User) => fetcher<User>('/api/register', 'POST', user);

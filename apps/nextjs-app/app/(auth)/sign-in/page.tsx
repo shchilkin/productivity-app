@@ -1,11 +1,9 @@
-import AuthForm from "@/components/AuthForm";
+import AuthForm from '@/components/AuthForm';
 
-const SignIn= () => {
+const SignIn = () => {
   return (
-    <div className={'w-full h-full flex items-center justify-center'}>
-      <AuthForm/>
-    </div>
-  )
-}
+    <AuthForm type={'sign-in'} />
+  );
+};
 
 export default SignIn;
