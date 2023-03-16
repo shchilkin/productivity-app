@@ -1,15 +1,21 @@
-import React from "react";
+import React from 'react';
+import '@/styles/globals.css';
 
-const AuthRootLayout: React.FunctionComponent = ({children}) => {
-    return (
-        <html lang={'en'}>
-        <body>
-        <div>
-            {children}
-        </div>
-        </body>
-        </html>
-    )
+interface AuthRootLayoutProps {
+  children: React.ReactNode;
 }
 
-export default AuthRootLayout
+const AuthRootLayout: React.FunctionComponent<AuthRootLayoutProps> = ({ children }) => {
+  return (
+    <html lang={'en'}>
+    <head />
+    <body>
+    <div className={'h-screen w-screen flex items-center'}>
+      {children}
+    </div>
+    </body>
+    </html>
+  );
+};
+
+export default AuthRootLayout;

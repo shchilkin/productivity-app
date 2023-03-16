@@ -39,11 +39,11 @@
     "@storybook/testing-library": "^0.0.13",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie": "^0.5.1",
-    "autoprefixer": "^10.4.13",
+    "autoprefixer": "^10.4.14",
     "babel-loader": "^8.3.0",
     "eslint-plugin-storybook": "^0.6.11",
     "postcss": "^8.4.21",
     "prisma": "4.7.1",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.7"
   }
 }
