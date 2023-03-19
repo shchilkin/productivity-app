@@ -37,16 +37,19 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
+  const [disabled, setDisabled] = useState(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('submit');
     try {
       if (type === 'register') {
+        setDisabled(true);
         await register({ email: email, password: password, name: name, surname: surname }).then((response) => {
           console.log(response);
           router.push('/app');
         });
       } else {
+        setDisabled(true);
         await signIn({ email: email, password: password }).then((response) => {
           console.log(JSON.stringify(response));
           router.push('/app');
@@ -55,6 +58,7 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
     } catch (error) {
       console.table({ email: email, password: password, name: name, surname: surname });
       console.error(error);
+      setDisabled(false);
     }
   };
 
@@ -95,7 +99,8 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
           setPassword(event.target.value);
         }} />
       </div>
-      <button className={'px-8 py-2 bg-amber-400 rounded-md mb-4 w-full'} type='submit'>{content.buttonLabel}</button>
+      <button disabled={disabled} className={'px-8 py-2 bg-amber-400 rounded-md mb-4 w-full'}
+              type='submit'>{content.buttonLabel}</button>
     </form>
     <div>
               <span>
