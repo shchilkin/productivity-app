@@ -1,7 +1,7 @@
 import { Task, User } from '@prisma/client';
 
 export const fetcher = async <T>(url: string, method: string, body: T | null, json = true) => {
-  console.info((body && { body: JSON.stringify(body)}))
+  console.info((body && { body: JSON.stringify(body) }));
   const response = await fetch(url, {
     method,
     ...(body && { body: JSON.stringify(body) }),
@@ -35,4 +35,4 @@ export const createTask = (task: Omit<Task, 'id' | 'ownerId'>) => fetcher<Omit<T
 
 export const updateTask = (task: Omit<Task, 'ownerId'>) => fetcher<Omit<Task, 'ownerId'>>('/api/task', 'PUT', task);
 
-export const deleteTask = (id: number) => fetcher<number>('/api/task', 'DELETE', id, true);
+export const deleteTask = (task: Omit<Task, 'id' | 'ownerId' | 'status' | 'description' | 'title'>) => fetcher<Omit<Task, 'id' | 'ownerId' | 'status' | 'description' | 'title'>>('/api/task', 'DELETE', task, true);

@@ -11,7 +11,7 @@ const App = async () => {
         {/*@ts-expect-error Server Component*/}
         <UserGreetings />
       </Suspense>
-      <div><Suspense fallback={<h1>Loading tasks</h1>}>
+      <div className={'w-full h-full flex items-top justify-center'}><Suspense fallback={<h1>Loading tasks</h1>}>
         <TaskList />
       </Suspense></div>
       <FloatingActionButton />

@@ -67,7 +67,9 @@ const task = async (req: NextApiRequest, res: NextApiResponse) => {
         id: id,
       },
       data: {
-        status: !status,
+        status: status,
+        title: title,
+        description: description,
       },
     });
 
@@ -98,7 +100,7 @@ const task = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       return res.status(201).json({ message: `${task.id} deleted.` });
     } catch (error) {
-      return res.status(400).json({error: `Task with id: ${id} not found.`});
+      return res.status(400).json({ error: `Task with id: ${id} not found.` });
     }
   }
 
