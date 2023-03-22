@@ -11,7 +11,7 @@ const UserGreetings: () => Promise<JSX.Element> = async () => {
 
   return (
     <div>
-      <h1 className={'text-4xl'}>Hi, {user?.name} 👋</h1>
+      <h1 className={'text-4xl mb-2'}>Hi, {user?.name} 👋</h1>
     </div>);
 };
 

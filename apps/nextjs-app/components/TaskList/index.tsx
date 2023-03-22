@@ -20,9 +20,14 @@ const TaskList = () => {
 
   if (!tasks) return <div>no data</div>;
 
-  return <div>
-    {tasks
-      .sort((a, b) => (a.id - b.id))
+  return <div className={'grow'}>
+    {tasks.map((task, index) => {
+      return {
+        ...task,
+        frontendID: index,
+      };
+    })
+      .sort((a, b) => (a.frontendID - b.frontendID))
       .map((task) => <TaskItem key={task.id} {...task} />)}
   </div>;
 };

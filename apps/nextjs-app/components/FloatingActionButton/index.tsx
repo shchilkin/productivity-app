@@ -18,7 +18,7 @@ const FloatingActionButton: React.FunctionComponent = () => {
 
     const id = v4();
     const newTask = {
-      title: 'new task v.2', description: 'new task description v.2', status: false, id,
+      title: '', description: '', status: false, id,
     };
 
     await mutateTasks(data => {

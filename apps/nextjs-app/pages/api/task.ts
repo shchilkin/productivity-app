@@ -20,7 +20,7 @@ const task = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const task = await db.task.create({
       data: {
-        title: title || 'Untitled',
+        title: title || '',
         status: status || false,
         description: description || null,
         owner: {
