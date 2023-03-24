@@ -4,15 +4,14 @@ import React from 'react';
 import { createTask } from '@/utils/api/fetcher';
 import useTasks from '@/utils/hooks/useTasks';
 import { v4 } from 'uuid';
-import { Task } from '@prisma/client';
 
 const disabledStyles = 'fixed bottom-4 right-4 bg-gray-400 text-black p-4 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 z-50';
 const enabledStyles = 'fixed bottom-4 right-4 bg-amber-400 text-black p-4 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 z-50';
 
 const FloatingActionButton: React.FunctionComponent = () => {
-  const [disabled, setDisabled] = React.useState(false);
+  const [disabled] = React.useState(false);
 
-  const { data, mutateTasks } = useTasks();
+  const { mutateTasks } = useTasks();
   const handleClick = async () => {
     // setDisabled(true);
 
@@ -22,7 +21,7 @@ const FloatingActionButton: React.FunctionComponent = () => {
     };
 
     await mutateTasks(data => {
-      // @ts-expect-error
+      // @ts-expect-error data is not null
       return [...data, newTask];
     }, false);
 
