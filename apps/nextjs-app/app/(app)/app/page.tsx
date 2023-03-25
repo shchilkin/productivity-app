@@ -17,11 +17,11 @@ const App = async () => {
 
   return (
     <div className={'flex flex-col grow p8 mx-[16px]'}>
-      <h1>Productivity App</h1>
-      <Suspense fallback={<h1>Loading</h1>}>
-        {/*@ts-expect-error Server Component*/}
-        <UserGreetings />
-      </Suspense>
+      {/*<h1>Productivity App</h1>*/}
+      {/*<Suspense fallback={<h1>Loading</h1>}>*/}
+      {/*  /!*@ts-expect-error Server Component*!/*/}
+      {/*  <UserGreetings />*/}
+      {/*</Suspense>*/}
       <AppClientSide tasks={tasks} />
     </div>
   )

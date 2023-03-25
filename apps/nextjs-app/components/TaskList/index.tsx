@@ -22,7 +22,7 @@ const TaskList = () => {
   if (!tasks) return <div>no data</div>
 
   return (
-    <div>
+    <div className={'w-full'}>
       {tasks
         .map((task) => ({ ...task, localId: localIdGenerator.next().value }))
         .sort((a, b) => a.localId - b.localId)

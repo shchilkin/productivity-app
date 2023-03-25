@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from 'react'
-import { deleteTask, updateTask } from '@/utils/api/fetcher'
+import { updateTask } from '@/utils/api/fetcher'
 import useTasks from '@/utils/hooks/useTasks'
 import { Task } from '@prisma/client'
 
-interface TaskProps {
+export interface TaskProps {
   id: number
   title: string
   description: string | null
@@ -24,7 +24,7 @@ const TaskItem: React.FunctionComponent<TaskProps> = ({
 }) => {
   const { data, error, isLoading, mutateTasks } = useTasks()
 
-  const [editMode, setEditMode] = React.useState(false)
+  const [editMode] = React.useState(false)
   const [newTitle, setNewTitle] = React.useState(title)
 
   console.log('Task local id', localId)
@@ -67,52 +67,34 @@ const TaskItem: React.FunctionComponent<TaskProps> = ({
   }
 
   return (
-    <div className={'py-0.5 w-full'}>
-      <div className={'flex flex-row'}>
-        <input
-          type={'checkbox'}
-          checked={status}
-          onChange={handleChange}
-          autoFocus
-        />
-        {editMode ? (
-          <input
-            value={newTitle}
-            onChange={handleTitleChange}
-            placeholder={'New task'}
-          />
-        ) : (
-          <h1 className={'ml-1 mr-1'}>{title}</h1>
-        )}
-        <button
-          className={'rounded-md bg-red-500'}
-          onClick={async () => {
-            console.log('delete item', id)
-            try {
-              await mutateTasks((data) => {
-                if (!data) throw new Error('SWR data error')
-                return data.filter((item) => item.id !== id)
-              }, false)
-
-              await deleteTask({ id: id })
-            } catch (e) {
-              console.error(e)
-            }
-          }}
-        >
-          delete item
-        </button>
-        <button
-          className={`rounded-md ${editMode ? 'bg-green-500' : 'bg-amber-400'}`}
-          onClick={async () => {
-            setEditMode(!editMode)
-            await updateTask({ id, status, description, title: newTitle })
-          }}
-        >
-          {editMode ? 'Apply' : 'Edit item'}
-        </button>
+    <div className={'py-0.5 w-full flex flex-col'}>
+      <div className={'flex flex-row w-full'}>
+        <div className={'flex flex-row w-full items-start'}>
+          <div className={'flex flex-row items-start w-full gap-3'}>
+            <input
+              className={'mt-2'}
+              type={'checkbox'}
+              checked={status}
+              onChange={handleChange}
+              autoFocus
+              width={24}
+              height={24}
+            />
+            <div className={'flex flex-col'}>
+              {editMode ? (
+                <input
+                  value={newTitle}
+                  onChange={handleTitleChange}
+                  placeholder={'New task'}
+                />
+              ) : (
+                <h1 className={'text-lg font-semibold grow w-full'}>{title}</h1>
+              )}
+              <h1 className={'text-gray-600'}>{description}</h1>
+            </div>
+          </div>
+        </div>
       </div>
-      {/*<h1 className={'ml-4'}>{description}</h1>*/}
     </div>
   )
 }
