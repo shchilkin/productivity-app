@@ -1,35 +1,36 @@
 'use client'
 
-import useTasks from '@/utils/hooks/useTasks'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import idGenerator from '@/utils/idGenerator/idGenerator'
 import Task from '@/components/Task'
+import { GlobalStateContext } from '@/components/AppClientSide'
+import { useActor } from '@xstate/react'
 
 const localIdGenerator = idGenerator()
 const TaskList = () => {
-  const { data, isLoading, error } = useTasks()
+  const globalServices = useContext(GlobalStateContext)
 
-  const [tasks, setTasks] = React.useState(data)
+  const [state] = useActor(globalServices.appService)
+
+  const [tasks, setTasks] = React.useState(state.context.tasks)
 
   useEffect(() => {
-    setTasks(data)
-  }, [data])
+    setTasks(state.context.tasks)
+  }, [state.context.tasks])
 
-  if (error) return <div>failed to load</div>
-
-  if (isLoading) return <div>loading...</div>
+  console.log(tasks, 'tasks')
 
   if (!tasks) return <div>no data</div>
 
   return (
-    <div className={'w-full mt-4'}>
+    <ul className={'w-full mt-4'}>
       {tasks
         .map((task) => ({ ...task, localId: localIdGenerator.next().value }))
-        .sort((a, b) => a.localId - b.localId)
+        // .sort((a, b) => a.localId - b.localId)
         .map((task) => (
           <Task key={task.localId} {...task} />
         ))}
-    </div>
+    </ul>
   )
 }
 

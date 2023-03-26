@@ -14,6 +14,8 @@ const App = async () => {
     },
   })
 
+  console.log('tasks on server', tasks)
+
   return <AppClientSide tasks={tasks} />
 }
 
