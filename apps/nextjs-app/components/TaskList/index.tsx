@@ -1,9 +1,9 @@
 'use client'
 
-import TaskItem from '@/components/TaskItem'
 import useTasks from '@/utils/hooks/useTasks'
 import React, { useEffect } from 'react'
 import idGenerator from '@/utils/idGenerator/idGenerator'
+import Task from '@/components/Task'
 
 const localIdGenerator = idGenerator()
 const TaskList = () => {
@@ -22,12 +22,12 @@ const TaskList = () => {
   if (!tasks) return <div>no data</div>
 
   return (
-    <div className={'w-full'}>
+    <div className={'w-full mt-4'}>
       {tasks
         .map((task) => ({ ...task, localId: localIdGenerator.next().value }))
         .sort((a, b) => a.localId - b.localId)
         .map((task) => (
-          <TaskItem key={task.localId} {...task} />
+          <Task key={task.localId} {...task} />
         ))}
     </div>
   )

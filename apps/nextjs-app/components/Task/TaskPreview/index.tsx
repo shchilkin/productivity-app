@@ -1,33 +1,23 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useContext } from 'react'
+import { TaskProps } from '@/components/Task'
 import { updateTask } from '@/utils/api/fetcher'
 import useTasks from '@/utils/hooks/useTasks'
-import { Task } from '@prisma/client'
+import { findTaskById } from '@/components/Task/TaskListItem'
+import { GlobalStateContext } from '@/components/AppClientSide'
 
-export interface TaskProps {
-  id: number
-  title: string
-  description: string | null
-  status: boolean
-  localId: number
-}
-
-const findTaskById = (array: Task[], id: number) => {
-  return array.find((task) => task.id === id)
-}
-
-const TaskItem: React.FunctionComponent<TaskProps> = ({
-  id,
-  status,
-  description,
+const TaskPreview: React.FunctionComponent<TaskProps> = ({
   title,
-  localId,
+  description,
+  status,
+  id,
 }) => {
   const { data, error, isLoading, mutateTasks } = useTasks()
 
-  const [editMode] = React.useState(false)
   const [newTitle, setNewTitle] = React.useState(title)
 
-  console.log('Task local id', localId)
+  // TODO: Add edit mode
+  const globalServices = useContext(GlobalStateContext)
+  const { send } = globalServices.appService
 
   if (error) return <h1>Error</h1>
   if (isLoading) return <h1>Loading</h1>
@@ -38,7 +28,6 @@ const TaskItem: React.FunctionComponent<TaskProps> = ({
     console.error('Task id error', id, data)
     return null
   }
-
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
     await mutateTasks((data) => {
@@ -52,22 +41,8 @@ const TaskItem: React.FunctionComponent<TaskProps> = ({
     })
   }
 
-  const handleTitleChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-
-    setNewTitle(event.target.value)
-
-    await mutateTasks((data) => {
-      if (!data) throw new Error('SWR data error')
-      return [
-        ...data.filter((item) => item.id !== id),
-        { ...taskToFind, title: event.target.value },
-      ]
-    }, false)
-  }
-
   return (
-    <div className={'py-0.5 w-full flex flex-col'}>
+    <div className={'p-4 rounded-md shadow-2xl'}>
       <div className={'flex flex-row w-full'}>
         <div className={'flex flex-row w-full items-start'}>
           <div className={'flex flex-row items-start w-full gap-3'}>
@@ -81,22 +56,22 @@ const TaskItem: React.FunctionComponent<TaskProps> = ({
               height={24}
             />
             <div className={'flex flex-col'}>
-              {editMode ? (
-                <input
-                  value={newTitle}
-                  onChange={handleTitleChange}
-                  placeholder={'New task'}
-                />
-              ) : (
-                <h1 className={'text-lg font-semibold grow w-full'}>{title}</h1>
-              )}
+              <input
+                className={'text-lg font-semibold grow w-full'}
+                value={newTitle}
+                onChange={(event) => setNewTitle(event.target.value)}
+                autoFocus={true}
+              />
               <h1 className={'text-gray-600'}>{description}</h1>
             </div>
           </div>
         </div>
       </div>
+      <button className={'bg-red-500 px-4 py-2'} onClick={() => send('CANCEL')}>
+        close
+      </button>
     </div>
   )
 }
 
-export default TaskItem
+export default TaskPreview
