@@ -1,8 +1,5 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { TaskProps } from '@/components/Task'
-import { updateTask } from '@/utils/api/fetcher'
-import useTasks from '@/utils/hooks/useTasks'
-import { findTaskById } from '@/components/Task/TaskListItem'
 import { GlobalStateContext } from '@/components/AppClientSide'
 
 const TaskPreview: React.FunctionComponent<TaskProps> = ({
@@ -10,39 +7,30 @@ const TaskPreview: React.FunctionComponent<TaskProps> = ({
   description,
   status,
   id,
+  ownerId,
 }) => {
-  const { data, error, isLoading, mutateTasks } = useTasks()
-
   const [newTitle, setNewTitle] = React.useState(title)
+  const [newDescription, setNewDescription] = React.useState(
+    description ? description : ''
+  )
 
   // TODO: Add edit mode
   const globalServices = useContext(GlobalStateContext)
   const { send } = globalServices.appService
 
-  if (error) return <h1>Error</h1>
-  if (isLoading) return <h1>Loading</h1>
+  const titleInputRef = React.useRef<HTMLInputElement>(null)
 
-  const taskToFind = findTaskById(data, id)
-
-  if (!taskToFind) {
-    console.error('Task id error', id, data)
-    return null
-  }
-  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-    await mutateTasks((data) => {
-      if (!data) throw new Error('SWR data error')
-      return [
-        ...data.filter((item) => item.id !== id),
-        { ...taskToFind, status: !taskToFind.status },
-      ]
-    }, false).then(async () => {
-      await updateTask({ ...taskToFind, status: !taskToFind.status })
-    })
-  }
+  useEffect(() => {
+    const inputRef = titleInputRef.current
+    inputRef?.focus()
+    return () => {
+      console.log('unmount component with id: ', id)
+      inputRef?.blur()
+    }
+  }, [id])
 
   return (
-    <div className={'p-4 rounded-md shadow-2xl'}>
+    <div className={'p-4 rounded-md shadow-2xl bg-white'}>
       <div className={'flex flex-row w-full'}>
         <div className={'flex flex-row w-full items-start'}>
           <div className={'flex flex-row items-start w-full gap-3'}>
@@ -50,7 +38,7 @@ const TaskPreview: React.FunctionComponent<TaskProps> = ({
               className={'mt-2'}
               type={'checkbox'}
               checked={status}
-              onChange={handleChange}
+              onChange={() => send('TOGGLE_ACTIVE_TASK', { id: id })}
               autoFocus
               width={24}
               height={24}
@@ -59,16 +47,46 @@ const TaskPreview: React.FunctionComponent<TaskProps> = ({
               <input
                 className={'text-lg font-semibold grow w-full'}
                 value={newTitle}
+                ref={titleInputRef}
                 onChange={(event) => setNewTitle(event.target.value)}
                 autoFocus={true}
               />
-              <h1 className={'text-gray-600'}>{description}</h1>
+              <input
+                className={'text-gray-600'}
+                value={newDescription}
+                onChange={(event) => setNewDescription(event.target.value)}
+              />
             </div>
           </div>
         </div>
       </div>
-      <button className={'bg-red-500 px-4 py-2'} onClick={() => send('CANCEL')}>
+      <button
+        className={'bg-amber-500 px-4 py-2'}
+        onClick={() => send('CANCEL')}
+      >
         close
+      </button>
+      <button
+        className={'bg-red-500 px-4 py-2'}
+        onClick={() => send('DELETE_TASK', { id: id })}
+      >
+        Delete
+      </button>
+      <button
+        className={'bg-green-500 px-4 py-2'}
+        onClick={() =>
+          send('UPDATE_TASK', {
+            task: {
+              id: id,
+              title: newTitle,
+              description: newDescription,
+              status: status,
+              ownerId: ownerId,
+            },
+          })
+        }
+      >
+        Save
       </button>
     </div>
   )

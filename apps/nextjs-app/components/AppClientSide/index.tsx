@@ -1,10 +1,10 @@
 'use client'
-import { SWRConfig } from 'swr'
-import React, { createContext, useEffect } from 'react'
+
+import React, { createContext } from 'react'
 import TaskList from '@/components/TaskList'
 import FloatingActionButton from '@/components/FloatingActionButton'
 import { Task } from '@prisma/client'
-import { useInterpret, useMachine } from '@xstate/react'
+import { useActor, useInterpret } from '@xstate/react'
 import { appMachine } from '@/state'
 import { InterpreterFrom } from 'xstate'
 
@@ -19,31 +19,30 @@ export const GlobalStateContext = createContext({
 const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({
   tasks,
 }) => {
-  const [state] = useMachine(appMachine)
+  const appService = useInterpret(appMachine, {
+    context: {
+      activeTask: null,
+      tasks: tasks,
+    },
+  })
 
-  useEffect(() => {
-    console.log(state.value, 'state.value')
-  }, [state.value])
-
-  const appService = useInterpret(appMachine)
+  const [state] = useActor(appService)
 
   return (
-    <GlobalStateContext.Provider value={{ appService }}>
-      <SWRConfig
-        value={{
-          fallback: {
-            '/api/tasks': tasks,
-          },
-        }}
-      >
+    <div
+      className={`w-full h-full flex items-top justify-center ${
+        state.matches('editTask') ? 'bg-gray-200' : 'bg-white'
+      }`}
+    >
+      <GlobalStateContext.Provider value={{ appService }}>
         <div className={`flex flex-col grow p8 mx-[16px]`}>
           <div className={'w-full h-full flex items-top justify-center'}>
             <TaskList />
           </div>
         </div>
         <FloatingActionButton />
-      </SWRConfig>
-    </GlobalStateContext.Provider>
+      </GlobalStateContext.Provider>
+    </div>
   )
 }
 

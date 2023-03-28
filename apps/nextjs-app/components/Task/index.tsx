@@ -10,6 +10,7 @@ export interface TaskProps {
   description: string | null
   status: boolean
   localId: number
+  ownerId?: number
 }
 
 const Task: React.FunctionComponent<TaskProps> = ({
@@ -18,6 +19,7 @@ const Task: React.FunctionComponent<TaskProps> = ({
   description,
   status,
   localId,
+  ownerId,
 }) => {
   const globalServices = useContext(GlobalStateContext)
 
@@ -34,6 +36,7 @@ const Task: React.FunctionComponent<TaskProps> = ({
           description,
           status,
           localId,
+          ownerId,
         }}
       />
     )

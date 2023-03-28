@@ -1,6 +1,4 @@
-import React, { ChangeEvent, useContext } from 'react'
-import { updateTask } from '@/utils/api/fetcher'
-import useTasks from '@/utils/hooks/useTasks'
+import React, { useContext } from 'react'
 import { Task } from '@prisma/client'
 import { TaskProps } from '@/components/Task'
 import { GlobalStateContext } from '@/components/AppClientSide'
@@ -15,39 +13,16 @@ const TaskListItem: React.FunctionComponent<TaskProps> = ({
   description,
   title,
 }) => {
-  const { data, error, isLoading, mutateTasks } = useTasks()
-
   const globalServices = useContext(GlobalStateContext)
 
   const appService = globalServices.appService
 
+  // const [state] = useActor(appService)
+
   const { send } = appService
 
-  if (error) return <h1>Error</h1>
-  if (isLoading) return <h1>Loading</h1>
-
-  const taskToFind = findTaskById(data, id)
-
-  if (!taskToFind) {
-    console.error('Task id error', id, data)
-    return null
-  }
-
-  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-    await mutateTasks((data) => {
-      if (!data) throw new Error('SWR data error')
-      return [
-        ...data.filter((item) => item.id !== id),
-        { ...taskToFind, status: !taskToFind.status },
-      ]
-    }, false).then(async () => {
-      await updateTask({ ...taskToFind, status: !taskToFind.status })
-    })
-  }
-
   return (
-    <div className={'py-0.5 w-full flex flex-col'}>
+    <li className={'py-0.5 w-full flex flex-col'}>
       <div className={'flex flex-row w-full'}>
         <div className={'flex flex-row w-full items-start'}>
           <div className={'flex flex-row items-start w-full gap-3'}>
@@ -55,14 +30,14 @@ const TaskListItem: React.FunctionComponent<TaskProps> = ({
               className={'mt-2'}
               type={'checkbox'}
               checked={status}
-              onChange={handleChange}
+              onChange={() => send('TOGGLE_TASK', { id: id })}
               autoFocus
               width={24}
               height={24}
             />
             <div
               className={'flex flex-col'}
-              onClick={() => send('editTask', { id: id })}
+              onClick={() => send('SELECT_TASK', { id: id })}
             >
               <h1 className={'text-lg font-semibold grow w-full'}>{title}</h1>
               <h1 className={'text-gray-600'}>{description}</h1>
@@ -70,7 +45,7 @@ const TaskListItem: React.FunctionComponent<TaskProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </li>
   )
 }
 
