@@ -68,6 +68,7 @@ const task = async (req: NextApiRequest, res: NextApiResponse) => {
         status: status,
         title: title,
         description: description,
+        updatedAt: new Date(),
       },
     })
 

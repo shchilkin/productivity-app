@@ -24,7 +24,12 @@ const TaskList = () => {
     <ul className={'w-full mt-4'}>
       {tasks
         .map((task) => ({ ...task, localId: localIdGenerator.next().value }))
-        // .sort((a, b) => a.localId - b.localId)
+        .sort((a, b) => {
+          return (
+            Date.parse(a.createdAt as unknown as string) -
+            Date.parse(b.createdAt as unknown as string)
+          )
+        })
         .map((task) => (
           <Task key={task.localId} {...task} />
         ))}

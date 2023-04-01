@@ -29,6 +29,11 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({
     devTools: true,
   })
 
+  // inspect({
+  //   iframe: false,
+  //   url: 'https://stately.ai/viz?inspect',
+  // })
+
   const [state] = useActor(appService)
 
   const addingNewTask = state.matches('createTask')
