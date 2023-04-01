@@ -17,10 +17,12 @@ model User {
 }
 
 model Task {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   title       String
-  status      Boolean @default(false)
+  status      Boolean  @default(false)
   ownerId     Int
   description String?
-  owner       User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt @default(now())
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 }
