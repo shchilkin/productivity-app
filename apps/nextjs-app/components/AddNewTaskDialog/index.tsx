@@ -9,15 +9,13 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
 
   const [state] = useActor(globalServices.appService)
 
+  console.log(state, 'state')
+
   const dialogService = state.children.addNewTaskService
 
   const [dialogServiceState] = useActor(dialogService)
 
   const canSave = dialogServiceState.matches('canSave')
-
-  const [newDescription, setNewDescription] = React.useState<string>(
-    dialogServiceState.context.description
-  )
 
   return (
     <div
@@ -34,28 +32,20 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
           className={'font-semibold text-lg'}
           placeholder={'Task name'}
           onChange={(event) => {
-            dialogService.send(
-              'UPDATE_LOCAL_CONTEXT',
-              // @ts-expect-error TODO: Add types
-              {
-                title: event.target.value,
-              }
-            )
+            // @ts-expect-error TODO: add types
+            dialogService.send('UPDATE_LOCAL_CONTEXT', {
+              title: event.target.value,
+            })
           }}
         />
         <input
           className={'text-gray-600'}
           placeholder={'Description'}
-          value={newDescription}
           onChange={(event) => {
-            setNewDescription(event.target.value)
-            dialogService.send(
-              'UPDATE_LOCAL_DESCRIPTION',
-              // @ts-expect-error TODO: Add types
-              {
-                description: event.target.value,
-              }
-            )
+            // @ts-expect-error TODO: add types
+            dialogService.send('UPDATE_LOCAL_CONTEXT', {
+              description: event.target.value,
+            })
           }}
         />
         <section className={'flex w-full flex-row-reverse mt-4'}>
