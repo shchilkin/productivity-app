@@ -3,8 +3,9 @@ import { createTask, deleteTask, updateTask } from '@/utils/api/fetcher'
 import {
   AppMachineContext,
   ToggleTaskEvent,
-} from '@/state/machines/appMachine/appMachine.types'
-import { mutateTask } from '@/state/machines/appMachine/appMachine.actions'
+} from '@/actors/appMachine/appMachine.types'
+import { addNewTaskService } from '@/actors/addNewTaskMachine/addNewTaskMachine'
+import { mutateTask } from '@/actors/appMachine/appMachine.actions'
 
 const setActiveTask = assign({
   activeTask: (context: AppMachineContext, event: { id: number | string }) => {
@@ -13,26 +14,6 @@ const setActiveTask = assign({
     return event.id
   },
 })
-
-const createNewTask = async (
-  // TODO: Add types
-  context: any,
-  event: any
-) => {
-  console.log(event, 'create new task invoke')
-
-  const { title, description, status, id } = event.task
-
-  const task = await createTask({
-    title: title,
-    description: description,
-    status: status,
-  })
-
-  return new Promise((resolve) => {
-    resolve({ task: task, localId: id })
-  })
-}
 
 const deleteItem = async (
   context: AppMachineContext,
@@ -93,7 +74,7 @@ const appMachine = createMachine(
   {
     schema: {
       context: {} as AppMachineContext,
-      // TODO: Add event types
+      // // TODO: Add event types
       events: {} as any,
       // TODO: Add action types
       actions: {} as any,
@@ -136,6 +117,7 @@ const appMachine = createMachine(
           },
         },
       },
+      // @deprecated
       syncUpdatedTaskWithServer: {
         invoke: {
           id: 'syncUpdatedTaskWithServer',
@@ -146,6 +128,28 @@ const appMachine = createMachine(
           onDone: {
             target: 'idle',
             actions: () => console.log('synced updated task with server'),
+          },
+          onError: {
+            target: 'idle',
+            actions: 'showError',
+          },
+        },
+      },
+      syncLocalTasksWithServer: {
+        invoke: {
+          id: 'syncLocalTasksWithServer',
+          src: (context, event) => {
+            console.warn(context, event, 'syncLocalTasksWithServer')
+            return createTask({
+              title: event.data.title,
+              description: event.data.description,
+              status: event.data.status,
+            })
+          },
+          onDone: {
+            target: 'idle',
+            actions: (context, event) =>
+              console.log('synced local tasks with server', event),
           },
           onError: {
             target: 'idle',
@@ -209,38 +213,23 @@ const appMachine = createMachine(
         },
       },
       createTask: {
-        on: {
-          CREATE_TASK: {
-            target: 'createTask',
+        invoke: {
+          id: 'addNewTaskService',
+          src: 'addNewTaskService',
+          onDone: {
+            // Return local new task data and sync it with server
+            // target syncUpdatedTaskWithServer
+            // TODO: rename syncUpdatedTaskWithServer to syncLocalTasksWithServer
+            target: 'syncLocalTasksWithServer',
             actions: [
               assign({
                 tasks: (context: AppMachineContext, event) => {
-                  console.log(event, 'create task')
-                  return [...context.tasks, event.task]
-                },
-              }),
-            ],
-          },
-          TOGGLE_TASK: {
-            actions: 'mutateTask',
-          },
-        },
-        invoke: {
-          id: 'createTask',
-          src: createNewTask,
-          onDone: {
-            target: 'idle',
-            actions: [
-              () => console.log('task created'),
-              assign({
-                tasks: (context, event) => {
-                  return context.tasks.map((task) => {
-                    if (task.id === event.data.localId) {
-                      return { ...task, id: event.data.task.id }
-                    } else {
-                      return task
-                    }
-                  })
+                  console.log(event.data, 'create task | TASK CREATED')
+                  if (event.data.saving) {
+                    delete event.data.saving
+                    return [...context.tasks, { ...event.data }]
+                  }
+                  return context.tasks
                 },
               }),
             ],
@@ -281,15 +270,13 @@ const appMachine = createMachine(
       deleteTaskService: (context, event) => deleteItem(context, event),
       sendUpdatedTaskDataToServerService: (context, event) =>
         updateItem(context, event),
+      addNewTaskService,
     },
     actions: {
-      // @ts-expect-error TODO: refactor machine and fix this
       setActiveTask,
-      // @ts-expect-error TODO: refactor machine and fix this
       mutateTask,
-      // @ts-expect-error TODO: refactor machine and fix this
       mutateLocalTask,
-      // @ts-expect-error TODO: refactor machine and fix this
+      // @ts-expect-error TODO: Refactor actions
       updateTask,
       showError: (context, event) =>
         console.log('error during event', event, context),

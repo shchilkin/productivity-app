@@ -16,7 +16,6 @@ const localIdGenerator = idGenerator()
 const FloatingActionButton: React.FunctionComponent = () => {
   const [disabled] = React.useState(false)
 
-  // CREATE_TASK
   const globalServices = useContext(GlobalStateContext)
   const { send } = globalServices.appService
 

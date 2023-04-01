@@ -5,8 +5,10 @@ import TaskList from '@/components/TaskList'
 import FloatingActionButton from '@/components/FloatingActionButton'
 import { Task } from '@prisma/client'
 import { useActor, useInterpret } from '@xstate/react'
-import { appMachine } from '@/state'
+
 import { InterpreterFrom } from 'xstate'
+import AddNewTaskDialog from '@/components/AddNewTaskDialog'
+import { appMachine } from '@/actors'
 
 interface AppClientSideProps {
   tasks: Task[]
@@ -24,9 +26,12 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({
       activeTask: null,
       tasks: tasks,
     },
+    devTools: true,
   })
 
   const [state] = useActor(appService)
+
+  const addingNewTask = state.matches('createTask')
 
   return (
     <div
@@ -40,6 +45,7 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({
             <TaskList />
           </div>
         </div>
+        {addingNewTask && <AddNewTaskDialog />}
         <FloatingActionButton />
       </GlobalStateContext.Provider>
     </div>

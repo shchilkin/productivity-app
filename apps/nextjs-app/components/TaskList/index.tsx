@@ -18,8 +18,6 @@ const TaskList = () => {
     setTasks(state.context.tasks)
   }, [state.context.tasks])
 
-  console.log(tasks, 'tasks')
-
   if (!tasks) return <div>no data</div>
 
   return (
