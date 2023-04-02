@@ -1,11 +1,6 @@
 import React, { useContext } from 'react'
-import { Task } from '@prisma/client'
 import { TaskProps } from '@/components/Task'
 import { GlobalStateContext } from '@/components/AppClientSide'
-
-export const findTaskById = (array: Task[], id: number) => {
-  return array.find((task) => task.id === id)
-}
 
 const TaskListItem: React.FunctionComponent<TaskProps> = ({
   id,

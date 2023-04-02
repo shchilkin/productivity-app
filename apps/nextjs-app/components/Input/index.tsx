@@ -1,15 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-interface InputProps {
-  props: React.InputHTMLAttributes<HTMLInputElement>;
+export interface InputProps {
+  props: React.InputHTMLAttributes<HTMLInputElement>
 }
 
 const Input: React.FunctionComponent<InputProps> = ({ ...props }) => {
   return (
-    <input
-      className={'border border-gray-300 rounded-md p-2'}
-      {...props} />
-  );
-};
+    <input className={'border border-gray-300 rounded-md p-2'} {...props} />
+  )
+}
 
-export default Input;
+export default Input
