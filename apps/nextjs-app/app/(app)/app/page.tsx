@@ -14,9 +14,7 @@ const App = async () => {
     },
   })
 
-  console.log('tasks on server', tasks)
-
-  return <AppClientSide tasks={tasks} />
+  return <AppClientSide tasks={tasks} data-superjson />
 }
 
 export default App
