@@ -16,6 +16,6 @@
   },
   "devDependencies": {
     "lerna": "^6.1.0",
-    "prisma": "4.7.1"
+    "prisma": "^4.12.0"
   }
 }
