@@ -1,6 +1,7 @@
 {
   "plugins": ["@typescript-eslint", "xstate"],
   "extends": [
+    "../../.eslintrc.json",
     "next/core-web-vitals",
     "plugin:jest-dom/recommended",
     "plugin:@typescript-eslint/recommended",
