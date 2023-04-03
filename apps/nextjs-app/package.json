@@ -12,7 +12,9 @@
     "generate-schema": "npx prisma generate --schema=../../prisma/schema.prisma",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "pre-commit": "yarn lint"
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "pre-commit": "yarn lint && yarn prettier"
   },
   "dependencies": {
     "@next/font": "^13.2.4",
