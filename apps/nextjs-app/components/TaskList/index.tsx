@@ -5,10 +5,14 @@ import idGenerator from '@/utils/idGenerator/idGenerator'
 import Task from '@/components/Task'
 import { GlobalStateContext } from '@/components/AppClientSide'
 import { useActor } from '@xstate/react'
+import { InterpreterFrom } from 'xstate'
+import { appMachine } from '@/actors'
 
 const localIdGenerator = idGenerator()
 const TaskList = () => {
-  const globalServices = useContext(GlobalStateContext)
+  const globalServices = useContext(
+    GlobalStateContext as React.Context<{ appService: InterpreterFrom<typeof appMachine> }>
+  )
 
   const [state] = useActor(globalServices.appService)
 
@@ -23,6 +27,8 @@ const TaskList = () => {
   return (
     <ul className={'w-full mt-4'}>
       {tasks
+        // TODO: fix this
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         .map((task) => ({ ...task, localId: localIdGenerator.next().value }))
         .sort((a, b) => {
           return Date.parse(a.createdAt as unknown as string) - Date.parse(b.createdAt as unknown as string)

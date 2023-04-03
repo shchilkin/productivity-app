@@ -71,7 +71,9 @@ const task = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     })
 
-    return res.status(201).json({ message: `${task.id} updated with ${task.status}` })
+    // TODO: Fix this
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    return res.status(201).json({ message: `${task.id as number} updated with ${task.status as boolean}` })
   }
 
   if (req.method === 'DELETE') {
@@ -87,7 +89,7 @@ const task = async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.warn('id', id, req.body)
 
-    if (!id) return res.status(400).json({ error: `Bad id ${id}.` })
+    if (!id) return res.status(400).json({ error: `Bad id ${id as number}.` })
 
     try {
       const task = await db.task.delete({
@@ -97,11 +99,11 @@ const task = async (req: NextApiRequest, res: NextApiResponse) => {
       })
       return res.status(201).json(task.id)
     } catch (error) {
-      return res.status(400).json({ error: `Task with id: ${id} not found.` })
+      return res.status(400).json({ error: `Task with id: ${id as number} not found.` })
     }
   }
 
-  res.status(405).json({ error: `Method ${req.method} not allowed.` })
+  res.status(405).json({ error: `Method ${req.method as string} not allowed.` })
 }
 
 export default task

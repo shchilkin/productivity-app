@@ -1,4 +1,3 @@
-import { fetcher } from '@/utils/api/fetcher'
 import bcrypt from 'bcrypt'
 import { jwtVerify, SignJWT } from 'jose'
 import { User } from '@prisma/client'
@@ -30,17 +29,15 @@ export const verifyToken = async (token: string) => {
 export const getUserFromCookie = async (cookies: RequestCookies | ReadonlyRequestCookies) => {
   if (process.env.COOKIE_NAME === undefined) return new Error('COOKIE_NAME is undefined.')
 
-  console.log(cookies.get(process.env.COOKIE_NAME))
-
   const token = cookies.get(process.env.COOKIE_NAME)
 
   if (token === undefined) return null
 
   const { payload } = await verifyToken(token.value)
 
-  return await db.user.findUnique({
+  return (await db.user.findUnique({
     where: {
       id: payload.id as number,
     },
-  })
+  })) as User
 }

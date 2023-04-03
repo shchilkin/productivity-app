@@ -1,5 +1,3 @@
-import { StateSchema } from 'xstate'
-
 export interface AddNewTaskMachineContext {
   title: string
   description: string

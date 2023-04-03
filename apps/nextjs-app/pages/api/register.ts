@@ -40,7 +40,7 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
 
       res.setHeader(
         'Set-Cookie',
-        serialize(process.env.COOKIE_NAME, token, {
+        serialize(process.env.COOKIE_NAME, token as string, {
           httpOnly: true,
           path: '/',
           maxAge: 60 * 60 * 24 * 7,
@@ -54,7 +54,7 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 
-  res.status(405).json({ error: `Method ${req.method} not allowed.` })
+  res.status(405).json({ error: `Method ${req.method as string} not allowed.` })
 }
 
 export default register

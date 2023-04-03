@@ -3,9 +3,15 @@
 import React, { useContext } from 'react'
 import { useActor } from '@xstate/react'
 import { GlobalStateContext } from '@/components/AppClientSide'
+import { appMachine } from '@/actors'
+import { InterpreterFrom } from 'xstate'
 
 const AddNewTaskDialog: React.FunctionComponent = () => {
-  const globalServices = useContext(GlobalStateContext)
+  const globalServices = useContext(
+    GlobalStateContext as React.Context<{
+      appService: InterpreterFrom<typeof appMachine>
+    }>
+  )
 
   const [state] = useActor(globalServices.appService)
 

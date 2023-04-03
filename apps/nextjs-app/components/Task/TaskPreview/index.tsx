@@ -1,13 +1,17 @@
 import React, { useContext, useEffect } from 'react'
 import { TaskProps } from '@/components/Task'
 import { GlobalStateContext } from '@/components/AppClientSide'
+import { InterpreterFrom } from 'xstate'
+import { appMachine } from '@/actors'
 
 const TaskPreview: React.FunctionComponent<TaskProps> = ({ title, description, status, id, ownerId }) => {
   const [newTitle, setNewTitle] = React.useState(title)
   const [newDescription, setNewDescription] = React.useState(description ? description : '')
 
   // TODO: Add edit mode
-  const globalServices = useContext(GlobalStateContext)
+  const globalServices = useContext(
+    GlobalStateContext as React.Context<{ appService: InterpreterFrom<typeof appMachine> }>
+  )
   const { send } = globalServices.appService
 
   const titleInputRef = React.useRef<HTMLInputElement>(null)

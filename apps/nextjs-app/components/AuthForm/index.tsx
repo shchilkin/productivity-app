@@ -76,6 +76,8 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
   return (
     <div className={'flex flex-col grow p8 mx-[16px]'}>
       <h2 className={'text-2xl font-bold'}>{content.title}</h2>
+      {/*TODO: Fix*/}
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <form onSubmit={handleSubmit}>
         {type === 'register' && (
           <>

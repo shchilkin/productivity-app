@@ -25,7 +25,7 @@ const signIn = async (req: NextApiRequest, res: NextApiResponse) => {
         return res
           .setHeader(
             'Set-Cookie',
-            serialize(process.env.COOKIE_NAME, token, {
+            serialize(process.env.COOKIE_NAME, token as string, {
               httpOnly: true,
               path: '/',
               maxAge: 60 * 60 * 24 * 7,
@@ -41,7 +41,7 @@ const signIn = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(500).json({ error: JSON.stringify(error), message: 'error occur' })
     }
   }
-  res.status(405).json({ error: `Method ${req.method} not allowed.` })
+  res.status(405).json({ error: `Method ${req.method as string} not allowed.` })
 }
 
 export default signIn

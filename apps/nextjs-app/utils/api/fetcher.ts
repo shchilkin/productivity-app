@@ -9,15 +9,17 @@ export const fetcher = async <T>(url: string, method: string, body: T | null, js
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  }).catch((error) => {
-    throw new Error(error)
+  }).catch((error: Error) => {
+    throw new Error(error.message)
   })
-
-  console.log('response', response.ok)
 
   if (!response.ok) throw new Error(`API Error: ${response.statusText}`)
 
-  if (json) return await response.json()
+  if (json) {
+    return (await response.json()) as T
+  } else {
+    return (await response.text()) as unknown as T
+  }
 }
 
 interface SignInCredentials {

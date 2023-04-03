@@ -3,21 +3,22 @@ import { createTask, deleteTask, updateTask } from '@/utils/api/fetcher'
 import { addNewTaskService } from '@/actors/addNewTaskMachine/addNewTaskMachine'
 import { mutateTask } from '@/actors/appMachine/appMachine.actions'
 import { AppMachineContext } from '@/actors/appMachine/appMachine.types'
+import { Task } from '@prisma/client'
 
 const setActiveTask = assign({
   // @ts-expect-error TODO: add types
-  activeTask: (context, event) => event.id,
+  activeTask: (context, event) => event.id as string,
 })
 
 // @ts-expect-error TODO: add types
-const deleteItem = async (context, event) => deleteTask({ id: event.id })
+const deleteItem = async (context, event) => (await deleteTask({ id: event.id })) as Promise<void>
 
 // @ts-expect-error TODO: add types
 const updateItem = async (context, event) => {
   // @ts-expect-error TODO: add types
   const task = context.tasks.find((task) => task.id === event.id)
   if (!task) return Promise.reject('Task not found')
-  return updateTask(task)
+  return (await updateTask(task)) as unknown as Promise<void>
 }
 
 export const mutateLocalTask = assign({
@@ -27,10 +28,10 @@ export const mutateLocalTask = assign({
       // @ts-expect-error TODO: add types
       if (task.id === event.task.id) {
         // @ts-expect-error TODO: add types
-        return { ...event.task }
+        return { ...event.task } as Task
       }
-      return task
-    })
+      return task as Task
+    }) as Task[]
   },
 })
 
@@ -58,7 +59,7 @@ const appMachine = createMachine<AppMachineContext>(
           src: 'sendUpdatedTaskDataToServerService',
           onDone: {
             target: 'idle',
-            actions: (context, event) => console.log(event, 'toggle task'),
+            actions: (_context, event) => console.log(event, 'toggle task'),
           },
           onError: { target: 'idle', actions: 'showError' },
         },
@@ -70,7 +71,7 @@ const appMachine = createMachine<AppMachineContext>(
           DELETE_TASK: {
             target: 'deleteTask',
             actions: assign({
-              tasks: (context, event) => context.tasks.filter((task) => task.id !== event.id),
+              tasks: (context, event) => context.tasks.filter((task) => task.id !== event.id) as Task[],
             }),
           },
           TOGGLE_ACTIVE_TASK: { target: 'editTask', actions: 'mutateTask' },
@@ -87,17 +88,17 @@ const appMachine = createMachine<AppMachineContext>(
           onDone: [
             {
               target: 'syncLocalTasksWithServer',
-              cond: (context, event) => !event.data.noSave,
+              cond: (_context, event) => !event.data.noSave,
               actions: assign({
                 tasks: (context, event) => {
-                  if (event.data) return [...context.tasks, { ...event.data }]
-                  return context.tasks
+                  if (event.data) return [...context.tasks, { ...event.data }] as Task[]
+                  return context.tasks as Task[]
                 },
               }),
             },
             {
               target: 'idle',
-              cond: (context, event) => event.data.noSave,
+              cond: (_context, event) => event.data.noSave as boolean,
             },
           ],
           onError: { target: 'idle', actions: 'showError' },
@@ -111,7 +112,7 @@ const appMachine = createMachine<AppMachineContext>(
             target: 'idle',
             actions: assign({
               activeTask: null,
-              tasks: (context, event) => context.tasks.filter((task) => task.id !== event.data.id),
+              tasks: (context, event) => context.tasks.filter((task) => task.id !== event.data.id) as Task[],
             }),
           },
           onError: { target: 'editTask', actions: 'showError' },
@@ -131,10 +132,10 @@ const appMachine = createMachine<AppMachineContext>(
       syncLocalTasksWithServer: {
         invoke: {
           id: 'syncLocalTasksWithServer',
-          src: (context, event) => createTask(event.data),
+          src: (_context, event) => createTask(event.data) as unknown as Promise<void>,
           onDone: {
             target: 'idle',
-            actions: (context, event) => console.log('synced local tasks with server', event),
+            actions: (_context, event) => console.log('synced local tasks with server', event),
           },
           onError: { target: 'idle', actions: 'showError' },
         },

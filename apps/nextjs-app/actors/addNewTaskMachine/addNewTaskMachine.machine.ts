@@ -57,9 +57,9 @@ export const addNewTaskMachine = {
       type: 'final',
       data: {
         title: (context: AddNewTaskMachineContext) => {
-          return context.title
+          return context.title as string
         },
-        description: (context: AddNewTaskMachineContext) => context.description,
+        description: (context: AddNewTaskMachineContext) => context.description as string,
         status: false,
       },
     },
@@ -87,8 +87,7 @@ export const addNewTaskMachine = {
           if (event.description !== undefined) {
             newContext.description = event.description
           }
-          console.log(event, 'update local context')
-          return newContext
+          return context
         }),
       ],
     },

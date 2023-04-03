@@ -1,13 +1,15 @@
 import React, { useContext } from 'react'
 import { TaskProps } from '@/components/Task'
 import { GlobalStateContext } from '@/components/AppClientSide'
+import { InterpreterFrom } from 'xstate'
+import { appMachine } from '@/actors'
 
 const TaskListItem: React.FunctionComponent<TaskProps> = ({ id, status, description, title }) => {
-  const globalServices = useContext(GlobalStateContext)
+  const globalServices = useContext(
+    GlobalStateContext as React.Context<{ appService: InterpreterFrom<typeof appMachine> }>
+  )
 
   const appService = globalServices.appService
-
-  // const [state] = useActor(appService)
 
   const { send } = appService
 
