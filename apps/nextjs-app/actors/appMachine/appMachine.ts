@@ -70,8 +70,7 @@ const appMachine = createMachine<AppMachineContext>(
           DELETE_TASK: {
             target: 'deleteTask',
             actions: assign({
-              tasks: (context, event) =>
-                context.tasks.filter((task) => task.id !== event.id),
+              tasks: (context, event) => context.tasks.filter((task) => task.id !== event.id),
             }),
           },
           TOGGLE_ACTIVE_TASK: { target: 'editTask', actions: 'mutateTask' },
@@ -112,8 +111,7 @@ const appMachine = createMachine<AppMachineContext>(
             target: 'idle',
             actions: assign({
               activeTask: null,
-              tasks: (context, event) =>
-                context.tasks.filter((task) => task.id !== event.data.id),
+              tasks: (context, event) => context.tasks.filter((task) => task.id !== event.data.id),
             }),
           },
           onError: { target: 'editTask', actions: 'showError' },
@@ -136,8 +134,7 @@ const appMachine = createMachine<AppMachineContext>(
           src: (context, event) => createTask(event.data),
           onDone: {
             target: 'idle',
-            actions: (context, event) =>
-              console.log('synced local tasks with server', event),
+            actions: (context, event) => console.log('synced local tasks with server', event),
           },
           onError: { target: 'idle', actions: 'showError' },
         },
@@ -147,16 +144,14 @@ const appMachine = createMachine<AppMachineContext>(
   {
     services: {
       deleteTaskService: (context, event) => deleteItem(context, event),
-      sendUpdatedTaskDataToServerService: (context, event) =>
-        updateItem(context, event),
+      sendUpdatedTaskDataToServerService: (context, event) => updateItem(context, event),
       addNewTaskService,
     },
     actions: {
       setActiveTask,
       mutateTask,
       mutateLocalTask,
-      showError: (context, event) =>
-        console.log('error during event', event, context),
+      showError: (context, event) => console.log('error during event', event, context),
     },
   }
 )

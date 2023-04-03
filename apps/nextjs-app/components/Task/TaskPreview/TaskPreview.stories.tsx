@@ -10,9 +10,7 @@ const config = {
 
 export default config
 
-const Template: ComponentStory<typeof TaskPreview> = (args: TaskProps) => (
-  <TaskPreview {...args} />
-)
+const Template: ComponentStory<typeof TaskPreview> = (args: TaskProps) => <TaskPreview {...args} />
 
 export const Default = Template.bind({})
 

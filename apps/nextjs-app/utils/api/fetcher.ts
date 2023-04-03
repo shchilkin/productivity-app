@@ -1,11 +1,6 @@
 import { Task, User } from '@prisma/client'
 
-export const fetcher = async <T>(
-  url: string,
-  method: string,
-  body: T | null,
-  json = true
-) => {
+export const fetcher = async <T>(url: string, method: string, body: T | null, json = true) => {
   console.info(body && { body: JSON.stringify(body) })
   const response = await fetch(url, {
     method,
@@ -33,48 +28,20 @@ interface SignInCredentials {
 export const signIn = (signInCredentials: SignInCredentials) =>
   fetcher<SignInCredentials>('/api/sign-in', 'POST', signInCredentials)
 
-export const register = (user: Omit<User, 'id'>) =>
-  fetcher<Omit<User, 'id'>>('/api/register', 'POST', user)
+export const register = (user: Omit<User, 'id'>) => fetcher<Omit<User, 'id'>>('/api/register', 'POST', user)
 
-export const createTask = (
-  task: Omit<Task, 'id' | 'ownerId' | 'updatedAt' | 'createdAt'>
-) =>
-  fetcher<Omit<Task, 'id' | 'ownerId' | 'updatedAt' | 'createdAt'>>(
-    '/api/task',
-    'POST',
-    task
-  )
+export const createTask = (task: Omit<Task, 'id' | 'ownerId' | 'updatedAt' | 'createdAt'>) =>
+  fetcher<Omit<Task, 'id' | 'ownerId' | 'updatedAt' | 'createdAt'>>('/api/task', 'POST', task)
 
-export const updateTask = (
-  task: Omit<Task, 'ownerId' | 'updatedAt' | 'createdAt'>
-) =>
-  fetcher<Omit<Task, 'ownerId' | 'updatedAt' | 'createdAt'>>(
-    '/api/task',
-    'PUT',
-    task
-  )
+export const updateTask = (task: Omit<Task, 'ownerId' | 'updatedAt' | 'createdAt'>) =>
+  fetcher<Omit<Task, 'ownerId' | 'updatedAt' | 'createdAt'>>('/api/task', 'PUT', task)
 
 export const deleteTask = (
-  task: Omit<
-    Task,
-    | 'id'
-    | 'ownerId'
-    | 'status'
-    | 'description'
-    | 'title'
-    | 'updatedAt'
-    | 'createdAt'
-  >
+  task: Omit<Task, 'id' | 'ownerId' | 'status' | 'description' | 'title' | 'updatedAt' | 'createdAt'>
 ) =>
-  fetcher<
-    Omit<
-      Task,
-      | 'id'
-      | 'ownerId'
-      | 'status'
-      | 'description'
-      | 'title'
-      | 'updatedAt'
-      | 'createdAt'
-    >
-  >('/api/task', 'DELETE', task, true)
+  fetcher<Omit<Task, 'id' | 'ownerId' | 'status' | 'description' | 'title' | 'updatedAt' | 'createdAt'>>(
+    '/api/task',
+    'DELETE',
+    task,
+    true
+  )

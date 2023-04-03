@@ -18,15 +18,9 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
   const canSave = dialogServiceState.matches('canSave')
 
   return (
-    <div
-      className={
-        'fixed w-screen h-screen bg-gray-800/50 bg-opacity-[50] z-[51]'
-      }
-    >
+    <div className={'fixed w-screen h-screen bg-gray-800/50 bg-opacity-[50] z-[51]'}>
       <div
-        className={
-          'fixed inset-x-0 bottom-0 bg-white/100 flex flex-col justify-center px-[16px] pb-[24px] pt-[16px]'
-        }
+        className={'fixed inset-x-0 bottom-0 bg-white/100 flex flex-col justify-center px-[16px] pb-[24px] pt-[16px]'}
       >
         <input
           className={'font-semibold text-lg'}
@@ -56,10 +50,7 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
           >
             Save
           </button>
-          <button
-            onClick={() => dialogService.send('CANCEL_SAVING')}
-            className={'bg-gray-200 grow'}
-          >
+          <button onClick={() => dialogService.send('CANCEL_SAVING')} className={'bg-gray-200 grow'}>
             Cancel
           </button>
         </section>

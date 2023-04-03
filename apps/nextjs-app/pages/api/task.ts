@@ -3,8 +3,7 @@ import { db } from '@/utils/db'
 import { verifyToken } from '@/utils/auth'
 
 const task = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (process.env.COOKIE_NAME === undefined)
-    return new Error('COOKIE_NAME is undefined.')
+  if (process.env.COOKIE_NAME === undefined) return new Error('COOKIE_NAME is undefined.')
   if (!req.cookies[process.env.COOKIE_NAME]) {
     return res.status(401).json({ error: 'Bad token.' })
   }
@@ -72,9 +71,7 @@ const task = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     })
 
-    return res
-      .status(201)
-      .json({ message: `${task.id} updated with ${task.status}` })
+    return res.status(201).json({ message: `${task.id} updated with ${task.status}` })
   }
 
   if (req.method === 'DELETE') {

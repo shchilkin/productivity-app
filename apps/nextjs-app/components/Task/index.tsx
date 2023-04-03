@@ -13,14 +13,7 @@ export interface TaskProps {
   ownerId?: number
 }
 
-const Task: React.FunctionComponent<TaskProps> = ({
-  id,
-  title,
-  description,
-  status,
-  localId,
-  ownerId,
-}) => {
+const Task: React.FunctionComponent<TaskProps> = ({ id, title, description, status, localId, ownerId }) => {
   const globalServices = useContext(GlobalStateContext)
 
   const appService = globalServices.appService
@@ -41,15 +34,7 @@ const Task: React.FunctionComponent<TaskProps> = ({
       />
     )
 
-  return (
-    <TaskListItem
-      id={id}
-      title={title}
-      description={description}
-      status={status}
-      localId={localId}
-    />
-  )
+  return <TaskListItem id={id} title={title} description={description} status={status} localId={localId} />
 }
 
 export default Task

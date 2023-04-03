@@ -11,9 +11,7 @@ const config = {
 }
 export default config
 
-const Template: ComponentStory<typeof AuthForm> = (args) => (
-  <AuthForm {...args} />
-)
+const Template: ComponentStory<typeof AuthForm> = (args) => <AuthForm {...args} />
 
 export const SignIn = Template.bind({})
 SignIn.args = {

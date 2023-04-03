@@ -18,9 +18,7 @@ export const GlobalStateContext = createContext({
   appService: {} as InterpreterFrom<typeof appMachine>,
 })
 
-const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({
-  tasks,
-}) => {
+const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({ tasks }) => {
   const appService = useInterpret(appMachine, {
     context: {
       activeTask: null,

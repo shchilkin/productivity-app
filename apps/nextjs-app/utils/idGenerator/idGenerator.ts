@@ -1,8 +1,8 @@
 const idGenerator = function* () {
-  let id = 0;
+  let id = 0
   while (true) {
-    yield id++;
+    yield id++
   }
-};
+}
 
-export default idGenerator;
+export default idGenerator

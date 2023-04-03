@@ -8,9 +8,7 @@ const config = {
 
 export default config
 
-const Template: ComponentStory<typeof Input> = (args: InputProps) => (
-  <Input {...args} />
-)
+const Template: ComponentStory<typeof Input> = (args: InputProps) => <Input {...args} />
 
 export const Default = Template.bind({})
 Default.args = {}

@@ -44,10 +44,7 @@ export const addNewTaskMachine = {
         },
         onDone: {
           target: 'saveAndCloseDialog',
-          actions: [
-            () => console.log('task saved'),
-            () => console.log('exitDialog'),
-          ],
+          actions: [() => console.log('task saved'), () => console.log('exitDialog')],
         },
         onError: {
           target: 'cannotSave',

@@ -1,17 +1,13 @@
-'use client';
+'use client'
 
-import React from 'react';
+import React from 'react'
 
 interface ClientContainerProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const ClientContainer: React.FunctionComponent<ClientContainerProps> = ({ children }) => {
+  return <div>{children}</div>
+}
 
-  return (
-    <div>
-      {children}
-    </div>);
-};
-
-export default ClientContainer;
+export default ClientContainer

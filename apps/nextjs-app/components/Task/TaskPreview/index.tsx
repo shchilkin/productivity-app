@@ -2,17 +2,9 @@ import React, { useContext, useEffect } from 'react'
 import { TaskProps } from '@/components/Task'
 import { GlobalStateContext } from '@/components/AppClientSide'
 
-const TaskPreview: React.FunctionComponent<TaskProps> = ({
-  title,
-  description,
-  status,
-  id,
-  ownerId,
-}) => {
+const TaskPreview: React.FunctionComponent<TaskProps> = ({ title, description, status, id, ownerId }) => {
   const [newTitle, setNewTitle] = React.useState(title)
-  const [newDescription, setNewDescription] = React.useState(
-    description ? description : ''
-  )
+  const [newDescription, setNewDescription] = React.useState(description ? description : '')
 
   // TODO: Add edit mode
   const globalServices = useContext(GlobalStateContext)
@@ -60,16 +52,10 @@ const TaskPreview: React.FunctionComponent<TaskProps> = ({
           </div>
         </div>
       </div>
-      <button
-        className={'bg-amber-500 px-4 py-2'}
-        onClick={() => send('CANCEL')}
-      >
+      <button className={'bg-amber-500 px-4 py-2'} onClick={() => send('CANCEL')}>
         close
       </button>
-      <button
-        className={'bg-red-500 px-4 py-2'}
-        onClick={() => send('DELETE_TASK', { id: id })}
-      >
+      <button className={'bg-red-500 px-4 py-2'} onClick={() => send('DELETE_TASK', { id: id })}>
         Delete
       </button>
       <button

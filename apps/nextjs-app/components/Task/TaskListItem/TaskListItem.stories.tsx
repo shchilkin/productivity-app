@@ -9,9 +9,7 @@ const config = {
 
 export default config
 
-const Template: ComponentStory<typeof TaskListItem> = (args: TaskProps) => (
-  <TaskListItem {...args} />
-)
+const Template: ComponentStory<typeof TaskListItem> = (args: TaskProps) => <TaskListItem {...args} />
 
 export const Default = Template.bind({})
 
