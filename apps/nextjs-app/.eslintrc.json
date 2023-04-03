@@ -1,15 +1,15 @@
 {
-  "plugins": ["@typescript-eslint", "xstate"],
+  "plugins": [
+    "xstate"
+  ],
   "extends": [
-    "../../.eslintrc.json",
+    "../../.eslintrc.js",
     "next/core-web-vitals",
     "plugin:jest-dom/recommended",
-    "plugin:@typescript-eslint/recommended",
     "prettier",
     "plugin:xstate/recommended"
   ],
   "rules": {
-    "@typescript-eslint/no-unused-vars": "error",
     "xstate/spawn-usage": "error",
     "xstate/no-infinite-loop": "error",
     "xstate/no-imperative-action": "error",
@@ -21,9 +21,21 @@
     "xstate/no-invalid-transition-props": "error",
     "xstate/no-invalid-state-props": "error",
     "xstate/no-async-guard": "error",
-    "xstate/event-names": ["warn", "macroCase"],
-    "xstate/state-names": ["warn", "camelCase"],
+    "xstate/event-names": [
+      "warn",
+      "macroCase"
+    ],
+    "xstate/state-names": [
+      "warn",
+      "camelCase"
+    ],
     "xstate/no-inline-implementation": "warn",
     "xstate/no-auto-forward": "warn"
-  }
+  },
+  "ignorePatterns": [
+    "next.config.js",
+    "postcss.config.js",
+    ".eslintrc.js",
+    "tailwind.config.js"
+  ]
 }
