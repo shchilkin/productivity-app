@@ -12,10 +12,13 @@
     "apps/*"
   ],
   "scripts": {
-    "start": "lerna run dev"
+    "start": "lerna run dev",
+    "prepare": "husky install",
+    "pre-commit": "lerna run pre-commit"
   },
   "devDependencies": {
     "lerna": "^6.1.0",
-    "prisma": "^4.12.0"
+    "prisma": "^4.12.0",
+    "husky": "^8.0.0"
   }
 }
