@@ -13,3 +13,4 @@ node_modules/
 */.env.test
 */.env.production
 yarn-error.log
+.vercel

@@ -5,17 +5,17 @@ import { mutateTask } from '@/actors/appMachine/appMachine.actions'
 import { AppMachineContext } from '@/actors/appMachine/appMachine.types'
 import { Task } from '@prisma/client'
 
+// TODO: add types
 const setActiveTask = assign({
-  // @ts-expect-error TODO: add types
-  activeTask: (context, event) => event.id as string,
+  activeTask: (_context, event) => event.id as string,
 })
 
-// @ts-expect-error TODO: add types
-const deleteItem = async (context, event) => (await deleteTask({ id: event.id })) as Promise<void>
+// TODO: add types
+const deleteItem = async (_context, event) => (await deleteTask({ id: event.id })) as Promise<void>
 
-// @ts-expect-error TODO: add types
+// TODO: add types
 const updateItem = async (context, event) => {
-  // @ts-expect-error TODO: add types
+  // TODO: add types
   const task = context.tasks.find((task) => task.id === event.id)
   if (!task) return Promise.reject('Task not found')
   return (await updateTask(task)) as unknown as Promise<void>
@@ -23,11 +23,11 @@ const updateItem = async (context, event) => {
 
 export const mutateLocalTask = assign({
   tasks: (context, event) => {
-    // @ts-expect-error TODO: add types
+    // TODO: add types
     return context.tasks.map((task) => {
-      // @ts-expect-error TODO: add types
+      // TODO: add types
       if (task.id === event.task.id) {
-        // @ts-expect-error TODO: add types
+        // TODO: add types
         return { ...event.task } as Task
       }
       return task as Task

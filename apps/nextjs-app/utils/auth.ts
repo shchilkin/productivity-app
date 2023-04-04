@@ -33,7 +33,7 @@ export const getUserFromCookie = async (cookies: RequestCookies | ReadonlyReques
 
   if (token === undefined) return null
 
-  const { payload } = await verifyToken(token.value)
+  const { payload } = await verifyToken(token.value as string)
 
   return (await db.user.findUnique({
     where: {

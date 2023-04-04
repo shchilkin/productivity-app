@@ -19,7 +19,9 @@ const middleware = async (req: NextRequest) => {
   )
     return NextResponse.next()
 
-  if (process.env.COOKIE_NAME === undefined) return new Error('COOKIE_NAME is undefined.')
+  if (process.env.COOKIE_NAME === undefined) {
+    return NextResponse.next()
+  }
 
   const token = req.cookies.get(process.env.COOKIE_NAME)
 

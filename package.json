@@ -12,14 +12,16 @@
     "apps/*"
   ],
   "scripts": {
+    "bootstrap": "yarn install; lerna bootstrap",
     "start": "lerna run dev",
     "prepare": "husky install",
-    "pre-commit": "lerna run pre-commit"
+    "pre-commit": "lerna run pre-commit",
+    "build:next-app": "lerna run build --scope @todo-list/nextjs-app"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "husky": "^8.0.0",
-    "lerna": "^6.1.0",
+    "lerna": "^6.4.1",
     "prisma": "^4.12.0",
     "typescript": "^5.0.3"
   }
