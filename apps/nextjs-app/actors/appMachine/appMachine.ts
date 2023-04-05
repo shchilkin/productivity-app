@@ -2,12 +2,12 @@ import { createMachine, assign } from 'xstate'
 import { createTask, deleteTask, updateTask } from '@/utils/api/fetcher'
 import { addNewTaskService } from '@/actors/addNewTaskMachine/addNewTaskMachine'
 import { mutateTask } from '@/actors/appMachine/appMachine.actions'
-import { AppMachineContext } from '@/actors/appMachine/appMachine.types'
 import { Task } from '@prisma/client'
+import { AppMachineContext } from '@/actors/appMachine/appMachine.types'
 
 // TODO: add types
 const setActiveTask = assign({
-  activeTask: (_context, event) => event.id as string,
+  activeTask: (_context: AppMachineContext, event: { id: number }) => event.id,
 })
 
 // TODO: add types
@@ -22,7 +22,7 @@ const updateItem = async (context, event) => {
 }
 
 export const mutateLocalTask = assign({
-  tasks: (context, event) => {
+  tasks: (context: AppMachineContext, event: { task: Task }) => {
     // TODO: add types
     return context.tasks.map((task) => {
       // TODO: add types
@@ -35,7 +35,17 @@ export const mutateLocalTask = assign({
   },
 })
 
-const appMachine = createMachine<AppMachineContext>(
+type AppMachineEvents =
+  | { type: 'CREATE_TASK' }
+  | { type: 'DELETE_TASK'; id: number }
+  | { type: 'SELECT_TASK'; id: number }
+  | { type: 'TOGGLE_TASK'; task: Task }
+  | { type: 'UPDATE_TASK'; id: number }
+  | { type: 'CANCEL' }
+  | { type: 'TOGGLE_ACTIVE_TASK'; task: Task }
+
+const appMachine = createMachine<AppMachineContext, AppMachineEvents>(
+  // xstate types are not correct TODO: fix this
   {
     id: 'appMachine',
     initial: 'idle',

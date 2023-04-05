@@ -1,16 +1,19 @@
-import { createMachine, StateMachine } from 'xstate'
+import { createMachine } from 'xstate'
 import { cannotSave, canSave } from '@/actors/addNewTaskMachine/addNewTaskMachine.guards'
+import { updateLocalContext } from '@/actors/addNewTaskMachine/addNewTaskMachine.actions'
+import { savingTaskService } from '@/actors/addNewTaskMachine/addNeTaskMachine.services'
 import { addNewTaskMachine } from '@/actors/addNewTaskMachine/addNewTaskMachine.machine'
-import { AddNewTaskMachineContext, AddNewTaskMachineState } from '@/actors/addNewTaskMachine/addNewTaskMachine.types'
 
-export const addNewTaskService = createMachine<
-  AddNewTaskMachineContext,
-  any,
-  AddNewTaskMachineState
-  //   @ts-expect-error TODO: add types
->(addNewTaskMachine as StateMachine<AddNewTaskMachineContext, any, AddNewTaskMachineState>, {
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+export const addNewTaskService = createMachine(addNewTaskMachine, {
   guards: {
     canSave,
     cannotSave,
+  },
+  services: {
+    savingTaskService,
+  },
+  actions: {
+    updateLocalContext,
   },
 })
