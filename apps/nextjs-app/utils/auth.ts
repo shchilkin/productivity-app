@@ -6,7 +6,6 @@ import { db } from '@/utils/db';
 import { ReadonlyRequestCookies } from 'next/dist/server/app-render';
 import { RequestCookies } from 'next/dist/server/web/spec-extension/cookies';
 
-
 export const hashPassword = (password: string) => bcrypt.hash(password, 10);
 
 export const comparePasswords = (plainTextPassword: string, hashedPassword: string) =>
@@ -29,7 +28,6 @@ export const verifyToken = async (token: string) => {
   return await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET));
 };
 export const getUserFromCookie = async (cookies: RequestCookies | ReadonlyRequestCookies) => {
-
   if (process.env.COOKIE_NAME === undefined) return new Error('COOKIE_NAME is undefined.');
 
   console.log(cookies.get(process.env.COOKIE_NAME));
@@ -42,7 +40,7 @@ export const getUserFromCookie = async (cookies: RequestCookies | ReadonlyReques
 
   return await db.user.findUnique({
     where: {
-      id:  payload.id as number,
+      id: payload.id as number,
     },
   });
 };

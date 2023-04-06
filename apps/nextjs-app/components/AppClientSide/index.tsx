@@ -1,42 +1,40 @@
-'use client'
+'use client';
 
-import React, { createContext } from 'react'
-import TaskList from '@/components/TaskList'
-import FloatingActionButton from '@/components/FloatingActionButton'
-import { Task } from '@prisma/client'
-import { useActor, useInterpret } from '@xstate/react'
+import React, { createContext } from 'react';
+import TaskList from '@/components/TaskList';
+import FloatingActionButton from '@/components/FloatingActionButton';
+import { Task } from '@prisma/client';
+import { useActor, useInterpret } from '@xstate/react';
 
-import { InterpreterFrom } from 'xstate'
-import AddNewTaskDialog from '@/components/AddNewTaskDialog'
-import { appMachine } from '@/actors'
+import { InterpreterFrom } from 'xstate';
+import AddNewTaskDialog from '@/components/AddNewTaskDialog';
+import { appMachine } from '@/actors';
 
 interface AppClientSideProps {
-  tasks: Task[]
+  tasks: Task[];
 }
 
 export const GlobalStateContext = createContext({
   appService: {} as InterpreterFrom<typeof appMachine>,
-})
+});
 
-const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({
-  tasks,
-}) => {
+const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({ tasks }) => {
   const appService = useInterpret(appMachine, {
     context: {
       activeTask: null,
       tasks: tasks,
     },
     devTools: true,
-  })
+  });
 
   // inspect({
   //   iframe: false,
   //   url: 'https://stately.ai/viz?inspect',
   // })
 
-  const [state] = useActor(appService)
+  const [state] = useActor(appService);
 
-  const addingNewTask = state.matches('createTask')
+  const addingNewTask = state.matches('createTask');
 
   return (
     <div
@@ -54,7 +52,7 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({
         <FloatingActionButton />
       </GlobalStateContext.Provider>
     </div>
-  )
-}
+  );
+};
 
-export default AppClientSide
+export default AppClientSide;

@@ -7,7 +7,6 @@ const verifyToken = async (token: string) => {
 
 const PUBLIC_FILE = /\.(.*)$/;
 const middleware = async (req: NextRequest) => {
-
   const { pathname } = req.nextUrl;
 
   if (
@@ -17,8 +16,8 @@ const middleware = async (req: NextRequest) => {
     pathname.startsWith('/api') ||
     pathname.startsWith('/_next') ||
     PUBLIC_FILE.test(pathname)
-  ) return NextResponse.next();
-
+  )
+    return NextResponse.next();
 
   if (process.env.COOKIE_NAME === undefined) return new Error('COOKIE_NAME is undefined.');
 

@@ -44,10 +44,10 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
           httpOnly: true,
           path: '/',
           maxAge: 60 * 60 * 24 * 7,
-        }),
+        })
       );
 
-      return res.status(201).json({ 'message': 'User created.' });
+      return res.status(201).json({ message: 'User created.' });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: error });

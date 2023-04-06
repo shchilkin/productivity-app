@@ -7,11 +7,7 @@ interface ClientContainerProps {
 }
 
 const ClientContainer: React.FunctionComponent<ClientContainerProps> = ({ children }) => {
-
-  return (
-    <div>
-      {children}
-    </div>);
+  return <div>{children}</div>;
 };
 
 export default ClientContainer;

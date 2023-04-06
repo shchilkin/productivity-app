@@ -1,5 +1,5 @@
-import { assign } from 'xstate'
-import { AppMachineContext } from '@/actors/appMachine/appMachine.types'
+import { assign } from 'xstate';
+import { AppMachineContext } from '@/actors/appMachine/appMachine.types';
 
 // TODO: change name to mutateTaskLocally
 export const mutateTask = assign({
@@ -10,9 +10,9 @@ export const mutateTask = assign({
         return {
           ...task,
           status: !task.status,
-        }
+        };
       }
-      return task
-    })
+      return task;
+    });
   },
-})
+});

@@ -1,8 +1,5 @@
 {
-  "plugins": [
-    "@typescript-eslint",
-    "xstate"
-  ],
+  "plugins": ["@typescript-eslint", "xstate"],
   "extends": [
     "next/core-web-vitals",
     "plugin:jest-dom/recommended",
@@ -23,14 +20,8 @@
     "xstate/no-invalid-transition-props": "error",
     "xstate/no-invalid-state-props": "error",
     "xstate/no-async-guard": "error",
-    "xstate/event-names": [
-      "warn",
-      "macroCase"
-    ],
-    "xstate/state-names": [
-      "warn",
-      "camelCase"
-    ],
+    "xstate/event-names": ["warn", "macroCase"],
+    "xstate/state-names": ["warn", "camelCase"],
     "xstate/no-inline-implementation": "warn",
     "xstate/no-auto-forward": "warn"
   }

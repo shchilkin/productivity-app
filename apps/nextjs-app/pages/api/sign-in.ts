@@ -22,16 +22,19 @@ const signIn = async (req: NextApiRequest, res: NextApiResponse) => {
 
       if (isUser) {
         const token = await generateToken(user);
-        return res.setHeader(
-          'Set-Cookie',
-          serialize(process.env.COOKIE_NAME, token, {
-            httpOnly: true,
-            path: '/',
-            maxAge: 60 * 60 * 24 * 7,
-          }),
-        ).status(201).json({ 'message': 'success' });
+        return res
+          .setHeader(
+            'Set-Cookie',
+            serialize(process.env.COOKIE_NAME, token, {
+              httpOnly: true,
+              path: '/',
+              maxAge: 60 * 60 * 24 * 7,
+            })
+          )
+          .status(201)
+          .json({ message: 'success' });
       } else {
-        return res.status(201).json({ 'message': 'wrong password' });
+        return res.status(201).json({ message: 'wrong password' });
       }
     } catch (error) {
       console.error(error);
