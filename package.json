@@ -1,6 +1,6 @@
 {
-  "name": "root",
-  "version": "0.0.1",
+  "name": "productivity-app",
+  "version": "0.1.0",
   "description": "A productivity application",
   "main": "index.js",
   "repository": "https://github.com/shchilkin/todo-list.git",
