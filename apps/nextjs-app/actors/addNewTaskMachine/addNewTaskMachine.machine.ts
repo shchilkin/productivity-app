@@ -2,8 +2,8 @@ import {
   AddNewTaskMachineContext,
   AddNewTaskMachineState,
   UPDATE_LOCAL_CONTENT,
-} from '@/actors/addNewTaskMachine/addNewTaskMachine.types'
-import { assign } from 'xstate'
+} from '@/actors/addNewTaskMachine/addNewTaskMachine.types';
+import { assign } from 'xstate';
 
 export const addNewTaskMachine = {
   schema: {
@@ -32,22 +32,19 @@ export const addNewTaskMachine = {
       invoke: {
         id: 'savingTaskService',
         src: (context: AddNewTaskMachineContext) => {
-          console.log('attempting to save task')
+          console.log('attempting to save task');
           const localTask = {
             title: context.title,
             description: context.description,
             status: false,
-          }
-          return new Promise((resolve) => {
-            resolve(localTask)
-          })
+          };
+          return new Promise(resolve => {
+            resolve(localTask);
+          });
         },
         onDone: {
           target: 'saveAndCloseDialog',
-          actions: [
-            () => console.log('task saved'),
-            () => console.log('exitDialog'),
-          ],
+          actions: [() => console.log('task saved'), () => console.log('exitDialog')],
         },
         onError: {
           target: 'cannotSave',
@@ -60,7 +57,7 @@ export const addNewTaskMachine = {
       type: 'final',
       data: {
         title: (context: AddNewTaskMachineContext) => {
-          return context.title
+          return context.title;
         },
         description: (context: AddNewTaskMachineContext) => context.description,
         status: false,
@@ -83,15 +80,15 @@ export const addNewTaskMachine = {
     UPDATE_LOCAL_CONTEXT: {
       actions: [
         assign((context, event: UPDATE_LOCAL_CONTENT) => {
-          const newContext: Partial<AddNewTaskMachineContext> = {}
+          const newContext: Partial<AddNewTaskMachineContext> = {};
           if (event.title !== undefined) {
-            newContext.title = event.title
+            newContext.title = event.title;
           }
           if (event.description !== undefined) {
-            newContext.description = event.description
+            newContext.description = event.description;
           }
-          console.log(event, 'update local context')
-          return newContext
+          console.log(event, 'update local context');
+          return newContext;
         }),
       ],
     },
@@ -99,4 +96,4 @@ export const addNewTaskMachine = {
       target: 'closeDialogWithoutSaving',
     },
   },
-}
+};

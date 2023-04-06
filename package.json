@@ -1,6 +1,6 @@
 {
-  "name": "root",
-  "version": "0.0.1",
+  "name": "productivity-app",
+  "version": "0.1.0",
   "description": "A productivity application",
   "main": "index.js",
   "repository": "https://github.com/shchilkin/todo-list.git",
@@ -13,10 +13,17 @@
   ],
   "scripts": {
     "dev:nextjs-app": "lerna run dev --scope @todo-list/nextjs-app",
-    "build:nextjs-app": "lerna run build --scope @todo-list/nextjs-app"
+    "build:nextjs-app": "lerna run build --scope @todo-list/nextjs-app",
+    "prepare": "husky install",
+    "test": "lerna run test:ci --stream",
+    "lint": "lerna run lint --stream",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write ."
   },
   "devDependencies": {
+    "husky": "^8.0.0",
     "lerna": "^6.4.1",
+    "lint-staged": "^13.2.0",
     "prisma": "^4.12.0"
   }
 }

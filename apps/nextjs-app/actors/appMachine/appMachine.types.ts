@@ -1,8 +1,8 @@
-import { Task } from '@prisma/client'
+import { Task } from '@prisma/client';
 
 export interface AppMachineContext {
-  activeTask: number | string | null
-  tasks: Task[]
+  activeTask: number | string | null;
+  tasks: Task[];
 }
 
 export enum AppMachineEvents {
@@ -13,6 +13,6 @@ export enum AppMachineEvents {
 }
 
 export interface ToggleTaskEvent {
-  task: Task
-  TYPE: AppMachineEvents.TOGGLE_TASK
+  task: Task;
+  TYPE: AppMachineEvents.TOGGLE_TASK;
 }

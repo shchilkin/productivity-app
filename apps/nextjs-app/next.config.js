@@ -5,6 +5,6 @@ const nextConfig = {
     serverComponentsExternalPackages: ['bcrypt'],
     swcPlugins: [['next-superjson-plugin', {}]],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

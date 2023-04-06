@@ -1,12 +1,16 @@
-# Next.js App 
+# Next.js App
+
 Productivity app for managing your tasks.
 
 ## Project Overview
+
 this project uses `yarn` as package manager
 
 ## Getting Started
+
 ### Add environment variables to `.env`:
-``` dotenv
+
+```dotenv
 DATABASE_URL - link to your database
 JWT_SECRET - secret key for JWT
 COOKIE_NAME - name of how token will be stored in cookie

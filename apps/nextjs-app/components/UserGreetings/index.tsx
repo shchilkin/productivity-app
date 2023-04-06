@@ -6,13 +6,13 @@ const getData = async () => {
   return await getUserFromCookie(cookies());
 };
 const UserGreetings: () => Promise<JSX.Element> = async () => {
-
   const user = await getData();
 
   return (
     <div>
       <h1 className={'text-4xl'}>Hi, {user?.name} 👋</h1>
-    </div>);
+    </div>
+  );
 };
 
 export default UserGreetings;

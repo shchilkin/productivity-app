@@ -14,7 +14,6 @@ interface AuthFormContent {
   linkURL: string;
   linkText: string;
   buttonLabel: string;
-
 }
 
 const registerContent: AuthFormContent = {
@@ -27,7 +26,7 @@ const registerContent: AuthFormContent = {
 const signInContent: AuthFormContent = {
   title: 'Welcome back',
   linkURL: '/register',
-  linkText: 'Don\'t have an account?',
+  linkText: "Don't have an account?",
   buttonLabel: 'sign in',
 };
 
@@ -44,19 +43,29 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
     try {
       if (type === 'register') {
         setDisabled(true);
-        await register({ email: email, password: password, name: name, surname: surname }).then((response) => {
+        await register({
+          email: email,
+          password: password,
+          name: name,
+          surname: surname,
+        }).then(response => {
           console.log(response);
           router.push('/app');
         });
       } else {
         setDisabled(true);
-        await signIn({ email: email, password: password }).then((response) => {
+        await signIn({ email: email, password: password }).then(response => {
           console.log(JSON.stringify(response));
           router.push('/app');
         });
       }
     } catch (error) {
-      console.table({ email: email, password: password, name: name, surname: surname });
+      console.table({
+        email: email,
+        password: password,
+        name: name,
+        surname: surname,
+      });
       console.error(error);
       setDisabled(false);
     }
@@ -64,56 +73,79 @@ const AuthForm: React.FunctionComponent<AuthFormProps> = ({ type }) => {
 
   const content = type === 'register' ? registerContent : signInContent;
 
-  return <div className={'flex flex-col grow p8 mx-[16px]'}>
-    <h2 className={'text-2xl font-bold'}>{content.title}</h2>
-    <form onSubmit={handleSubmit}>
-      {type === 'register' && <>
+  return (
+    <div className={'flex flex-col grow p8 mx-[16px]'}>
+      <h2 className={'text-2xl font-bold'}>{content.title}</h2>
+      <form onSubmit={handleSubmit}>
+        {type === 'register' && (
+          <>
+            <div className={'flex flex-col w-full pb-4'}>
+              <label htmlFor="name">Name</label>
+              <input
+                className={'border border-gray-300 rounded-md p-2'}
+                type="text"
+                name="name"
+                id="name"
+                value={name}
+                onChange={event => {
+                  setName(event.target.value);
+                }}
+              />
+            </div>
+            <div className={'flex flex-col w-full pb-4'}>
+              <label htmlFor="surname">Surname</label>
+              <input
+                className={'border border-gray-300 rounded-md p-2'}
+                type="text"
+                name="surname"
+                id="surname"
+                value={surname}
+                onChange={event => {
+                  setSurname(event.target.value);
+                }}
+              />
+            </div>
+          </>
+        )}
         <div className={'flex flex-col w-full pb-4'}>
-          <label htmlFor='name'>Name</label>
+          <label htmlFor="email">Email</label>
           <input
             className={'border border-gray-300 rounded-md p-2'}
-            type='text' name='name' id='name' value={name} onChange={(event) => {
-            setName(event.target.value);
-          }} />
+            type="email"
+            name="email"
+            id="email"
+            value={email}
+            onChange={event => {
+              setEmail(event.target.value);
+            }}
+          />
         </div>
         <div className={'flex flex-col w-full pb-4'}>
-          <label htmlFor='surname'>Surname</label>
+          <label htmlFor="password">Password</label>
           <input
             className={'border border-gray-300 rounded-md p-2'}
-            type='text' name='surname' id='surname' value={surname} onChange={(event) => {
-            setSurname(event.target.value);
-          }} />
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={event => {
+              setPassword(event.target.value);
+            }}
+          />
         </div>
-      </>}
-      <div className={'flex flex-col w-full pb-4'}>
-        <label htmlFor='email'>Email</label>
-        <input className={'border border-gray-300 rounded-md p-2'} type='email' name='email' id='email' value={email}
-               onChange={(event) => {
-                 setEmail(event.target.value);
-               }} />
+        <button disabled={disabled} className={'px-8 py-2 bg-amber-400 rounded-md mb-4 w-full'} type="submit">
+          {content.buttonLabel}
+        </button>
+      </form>
+      <div>
+        <span>
+          <Link href={content.linkURL} className="text-blue-600 font-bold">
+            {content.linkText}
+          </Link>
+        </span>
       </div>
-      <div className={'flex flex-col w-full pb-4'}>
-        <label htmlFor='password'>Password</label>
-        <input className={'border border-gray-300 rounded-md p-2'} type='password' name='password' id='password'
-               value={password} onChange={(event) => {
-          setPassword(event.target.value);
-        }} />
-      </div>
-      <button disabled={disabled} className={'px-8 py-2 bg-amber-400 rounded-md mb-4 w-full'}
-              type='submit'>{content.buttonLabel}</button>
-    </form>
-    <div>
-              <span>
-                <Link
-                  href={content.linkURL}
-                  className='text-blue-600 font-bold'
-                >
-                  {content.linkText}
-                </Link>
-              </span>
     </div>
-  </div>
-    ;
+  );
 };
 
 export default AuthForm;

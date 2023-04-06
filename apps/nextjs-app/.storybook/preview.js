@@ -1,5 +1,5 @@
-import '../styles/globals.css'
-import { RouterContext } from 'next/dist/shared/lib/router-context' // next 12
+import '../styles/globals.css';
+import { RouterContext } from 'next/dist/shared/lib/router-context'; // next 12
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
@@ -11,4 +11,4 @@ export const parameters = {
   nextRouter: {
     Provider: RouterContext.Provider,
   },
-}
+};

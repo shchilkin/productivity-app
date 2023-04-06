@@ -1,20 +1,15 @@
-import React, { useContext } from 'react'
-import { TaskProps } from '@/components/Task'
-import { GlobalStateContext } from '@/components/AppClientSide'
+import React, { useContext } from 'react';
+import { TaskProps } from '@/components/Task';
+import { GlobalStateContext } from '@/components/AppClientSide';
 
-const TaskListItem: React.FunctionComponent<TaskProps> = ({
-  id,
-  status,
-  description,
-  title,
-}) => {
-  const globalServices = useContext(GlobalStateContext)
+const TaskListItem: React.FunctionComponent<TaskProps> = ({ id, status, description, title }) => {
+  const globalServices = useContext(GlobalStateContext);
 
-  const appService = globalServices.appService
+  const appService = globalServices.appService;
 
   // const [state] = useActor(appService)
 
-  const { send } = appService
+  const { send } = appService;
 
   return (
     <li className={'py-0.5 w-full flex flex-col'}>
@@ -30,10 +25,7 @@ const TaskListItem: React.FunctionComponent<TaskProps> = ({
               width={24}
               height={24}
             />
-            <div
-              className={'flex flex-col'}
-              onClick={() => send('SELECT_TASK', { id: id })}
-            >
+            <div className={'flex flex-col'} onClick={() => send('SELECT_TASK', { id: id })}>
               <h1 className={'text-lg font-semibold grow w-full'}>{title}</h1>
               <h1 className={'text-gray-600'}>{description}</h1>
             </div>
@@ -41,7 +33,7 @@ const TaskListItem: React.FunctionComponent<TaskProps> = ({
         </div>
       </div>
     </li>
-  )
-}
+  );
+};
 
-export default TaskListItem
+export default TaskListItem;

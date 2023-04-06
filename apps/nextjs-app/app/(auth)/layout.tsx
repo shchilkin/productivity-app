@@ -8,14 +8,12 @@ interface AuthRootLayoutProps {
 const AuthRootLayout: React.FunctionComponent<AuthRootLayoutProps> = ({ children }) => {
   return (
     <html lang={'en'}>
-    <head />
-    <body>
-    <div className={'h-screen w-screen'}>
-      <div className={'w-full h-full flex items-center justify-center'}>
-        {children}
-      </div>
-    </div>
-    </body>
+      <head />
+      <body>
+        <div className={'h-screen w-screen'}>
+          <div className={'w-full h-full flex items-center justify-center'}>{children}</div>
+        </div>
+      </body>
     </html>
   );
 };

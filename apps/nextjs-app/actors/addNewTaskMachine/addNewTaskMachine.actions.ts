@@ -1,1 +1,1 @@
-export const actionsPlaceholder = { type: 'placeholder' }
+export const actionsPlaceholder = { type: 'placeholder' };
