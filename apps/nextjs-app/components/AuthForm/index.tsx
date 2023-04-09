@@ -17,19 +17,11 @@ interface AuthFormContent {
 const variants = {
   open: {
     opacity: 1,
-    y: 0,
-    display: 'block',
-    transition: {
-      staggerChildren: 0.05,
-      staggerDirection: -1,
-      when: 'afterChildren',
-    },
+    scale: 1,
   },
   closed: {
-    display: 'none',
-    transitionBegin: { display: 'block' },
-    opacity: 0,
-    y: '100%',
+    opacity: 0.5,
+    scale: 0.98,
   },
 };
 
@@ -59,7 +51,6 @@ const AuthForm: React.FunctionComponent = () => {
 
   useEffect(() => {
     if (state.matches('authSuccess')) {
-      console.log('authenticated');
       router.push('/app');
     }
   }, [router, state]);
@@ -70,15 +61,11 @@ const AuthForm: React.FunctionComponent = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('submit');
     send('AUTHENTICATE');
   };
 
-  console.log('mode', state.context);
-
-  console.log('canAuthenticate', canAuthenticate, canAuthenticate || authenticating);
-
   if (state.matches('authSuccess')) {
+    // TODO: Add loading screen
     return (
       <div role="status">
         <svg
@@ -147,16 +134,12 @@ const AuthForm: React.FunctionComponent = () => {
             type="email"
             name="email"
             id="email"
-            // value={email}
             onChange={event => {
               send({
                 type: 'UPDATE_EMAIL',
                 payload: event.target.value,
               });
             }}
-            // onChange={event => {
-            //     setEmail(event.target.value);
-            // }}
           />
         </div>
         <div className={'flex flex-col w-full pb-4'}>
@@ -166,24 +149,20 @@ const AuthForm: React.FunctionComponent = () => {
             type="password"
             name="password"
             id="password"
-            // value={password}
             onChange={event => {
               send({
                 type: 'UPDATE_PASSWORD',
                 payload: event.target.value,
               });
             }}
-            // onChange={event => {
-            //     setPassword(event.target.value);
-            // }}
           />
         </div>
         <motion.button
           animate={canAuthenticate || authenticating ? 'open' : 'closed'}
           variants={variants}
-          disabled={authenticating}
+          disabled={authenticating || !canAuthenticate}
           transition={{ duration: 0.5 }}
-          className={`px-8 py-2 rounded-md mb-4 w-full ${
+          className={`px-8 py-2 rounded-md mb-4 w-full disabled:cursor-not-allowed ${
             authenticating ? 'bg-gray-400 text-black' : 'bg-amber-500 text-black'
           }}`}
           type="submit"
