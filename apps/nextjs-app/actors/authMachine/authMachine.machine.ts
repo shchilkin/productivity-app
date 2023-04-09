@@ -1,9 +1,9 @@
 import { assign, createMachine } from 'xstate';
-import { AuthMachineContext } from '@/actors/authMachine/authMachine.types';
+import { AuthEvent, AuthMachineContext } from '@/actors/authMachine/authMachine.types';
 import { canAuthenticate, cannotAuthenticate } from '@/actors/authMachine/authMachine.guards';
 import { register, signIn } from '@/utils/api/fetcher';
 
-const authMachine = createMachine<AuthMachineContext>(
+const authMachine = createMachine<AuthMachineContext, AuthEvent>(
   {
     id: 'authMachine',
     predictableActionArguments: true,
@@ -72,9 +72,6 @@ const authMachine = createMachine<AuthMachineContext>(
       },
     },
     on: {
-      UPDATE_AUTH_DATA: {
-        actions: 'updateAuthData',
-      },
       UPDATE_NAME: {
         actions: 'updateName',
       },
@@ -95,33 +92,35 @@ const authMachine = createMachine<AuthMachineContext>(
       cannotAuthenticate,
     },
     actions: {
-      updateAuthData: (context, event) => {
-        console.log('updateAuthData', context, event);
-        const { payload } = event;
-
-        console.log('payload', payload);
-        return {
-          ...context,
-          ...payload,
-        };
-      },
       updateName: assign({
         name: (context, event) => {
+          if (event.type !== 'UPDATE_NAME') {
+            return context.name;
+          }
           return event.payload;
         },
       }),
       updateSurname: assign({
         surname: (context, event) => {
+          if (event.type !== 'UPDATE_SURNAME') {
+            return context.surname;
+          }
           return event.payload;
         },
       }),
       updatePassword: assign({
         password: (context, event) => {
+          if (event.type !== 'UPDATE_PASSWORD') {
+            return context.password;
+          }
           return event.payload;
         },
       }),
       updateEmail: assign({
         email: (context, event) => {
+          if (event.type !== 'UPDATE_EMAIL') {
+            return context.email;
+          }
           return event.payload;
         },
       }),
