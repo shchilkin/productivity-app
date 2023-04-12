@@ -23,6 +23,15 @@ const middleware = async (req: NextRequest) => {
 
   const token = req.cookies.get(process.env.COOKIE_NAME);
 
+  if (pathname === '/') {
+    if (token) {
+      req.nextUrl.pathname = '/app';
+      return NextResponse.redirect(req.nextUrl);
+    }
+    req.nextUrl.pathname = '/sign-in';
+    return NextResponse.next();
+  }
+
   if (!token) {
     req.nextUrl.pathname = '/sign-in';
     return NextResponse.redirect(req.nextUrl);
