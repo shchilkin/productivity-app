@@ -10,8 +10,8 @@
     "test": "jest --watch",
     "test:ci": "jest --ci",
     "generate-schema": "npx prisma generate --schema=../../prisma/schema.prisma",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "storybook dev",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@next/font": "^13.2.4",
@@ -44,15 +44,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
-    "@storybook/addon-actions": "^6.5.16",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-interactions": "^6.5.16",
-    "@storybook/addon-links": "^6.5.16",
-    "@storybook/addon-styling": "^0.3.2",
-    "@storybook/builder-webpack5": "^6.5.16",
-    "@storybook/manager-webpack5": "^6.5.16",
-    "@storybook/react": "^6.5.16",
-    "@storybook/testing-library": "^0.0.13",
+    "@storybook/addon-actions": "^7.0.5",
+    "@storybook/addon-essentials": "^7.0.5",
+    "@storybook/addon-interactions": "^7.0.5",
+    "@storybook/addon-links": "^7.0.5",
+    "@storybook/addon-mdx-gfm": "^7.0.5",
+    "@storybook/addon-styling": "2.0.0",
+    "@storybook/cli": "^7.0.5",
+    "@storybook/nextjs": "^7.0.5",
+    "@storybook/react": "^7.0.5",
+    "@storybook/testing-library": "^0.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/bcrypt": "^5.0.0",
@@ -71,8 +72,7 @@
     "postcss-loader": "^7.1.0",
     "prettier": "^2.8.7",
     "prisma": "^4.12.0",
-    "storybook-addon-next": "^1.8.0",
-    "storybook-addon-next-router": "^4.0.2",
+    "storybook": "^7.0.5",
     "tailwindcss": "^3.2.7",
     "ts-node": "^10.9.1"
   }
