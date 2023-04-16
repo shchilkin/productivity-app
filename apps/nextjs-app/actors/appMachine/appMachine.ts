@@ -1,7 +1,7 @@
 import { createMachine, assign } from 'xstate';
 import { createTask, deleteTask, updateTask } from '@/utils/api/fetcher';
 import { addNewTaskService } from '@/actors/addNewTaskMachine/addNewTaskMachine';
-import { mutateTask } from '@/actors/appMachine/appMachine.actions';
+import { mutateTask, setActiveTab, toggleSidebar } from '@/actors/appMachine/appMachine.actions';
 import { AppMachineContext } from '@/actors/appMachine/appMachine.types';
 
 const setActiveTask = assign({
@@ -41,6 +41,8 @@ const appMachine = createMachine<AppMachineContext>(
     context: {
       activeTask: null,
       tasks: [],
+      sidebarOpen: false,
+      activeTab: 'today',
     },
     states: {
       idle: {
@@ -140,6 +142,10 @@ const appMachine = createMachine<AppMachineContext>(
         },
       },
     },
+    on: {
+      TOGGLE_SIDEBAR: { actions: 'toggleSidebar' },
+      SET_ACTIVE_TAB: { actions: 'setActiveTab' },
+    },
   },
   {
     services: {
@@ -149,7 +155,9 @@ const appMachine = createMachine<AppMachineContext>(
     },
     actions: {
       setActiveTask,
+      setActiveTab,
       mutateTask,
+      toggleSidebar,
       mutateLocalTask,
       showError: (context, event) => console.log('error during event', event, context),
     },

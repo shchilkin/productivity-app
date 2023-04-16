@@ -26,7 +26,9 @@ const TaskListItem: React.FunctionComponent<TaskProps> = ({ id, status, descript
               height={24}
             />
             <div className={'flex flex-col'} onClick={() => send('SELECT_TASK', { id: id })}>
-              <h1 className={'text-lg font-semibold grow w-full'}>{title}</h1>
+              <h1 className={`text-lg font-semibold grow w-full ${status && 'text-decoration-line: line-through'}`}>
+                {title}
+              </h1>
               <h1 className={'text-gray-600'}>{description}</h1>
             </div>
           </div>

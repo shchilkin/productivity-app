@@ -5,10 +5,13 @@ import TaskList from '@/components/TaskList';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import { Task } from '@prisma/client';
 import { useActor, useInterpret } from '@xstate/react';
-
 import { InterpreterFrom } from 'xstate';
 import AddNewTaskDialog from '@/components/AddNewTaskDialog';
 import { appMachine } from '@/actors';
+import AppHeader from '@/components/AppHeader';
+import { SnackbarProvider } from 'notistack';
+import Sidebar from '@/components/Sidebar';
+import AppBar from '@/components/AppBar';
 
 interface AppClientSideProps {
   tasks: Task[];
@@ -23,35 +26,45 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({ tasks }) =
     context: {
       activeTask: null,
       tasks: tasks,
+      activeTab: 'inbox',
     },
     devTools: true,
   });
-
-  // inspect({
-  //   iframe: false,
-  //   url: 'https://stately.ai/viz?inspect',
-  // })
 
   const [state] = useActor(appService);
 
   const addingNewTask = state.matches('createTask');
 
   return (
-    <div
-      className={`w-full h-full flex items-top justify-center ${
-        state.matches('editTask') ? 'bg-gray-200' : 'bg-white'
-      }`}
-    >
-      <GlobalStateContext.Provider value={{ appService }}>
-        <div className={`flex flex-col grow p8 mx-[16px]`}>
-          <div className={'w-full h-full flex items-top justify-center'}>
-            <TaskList />
+    <GlobalStateContext.Provider value={{ appService }}>
+      <SnackbarProvider autoHideDuration={3000}>
+        <AppBar />
+        <div
+          className={`w-full h-full mt-[39px] flex items-top justify-center ${
+            state.matches('editTask') ? 'bg-gray-200' : 'bg-white'
+          }`}
+        >
+          <div className={'flex flex-row grow mx-[16px]'}>
+            <Sidebar />
+            <main className={`flex flex-col w-full grow min-w-[240px]`}>
+              <AppHeader />
+              <div className={'w-full h-full flex items-top justify-center'}>
+                <TaskList />
+              </div>
+              {/*<button*/}
+              {/*    className={'flex border-2 border-blue-500 text-blue-500 flex-row justify-center items-center gap-1 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded'}*/}
+              {/*    onClick={() => enqueueSnackbar('Hot sex', {*/}
+              {/*        variant: 'success'*/}
+              {/*    })}>*/}
+              {/*    <PlusIcon/> Add task*/}
+              {/*</button>*/}
+            </main>
           </div>
+          {addingNewTask && <AddNewTaskDialog />}
+          <FloatingActionButton />
         </div>
-        {addingNewTask && <AddNewTaskDialog />}
-        <FloatingActionButton />
-      </GlobalStateContext.Provider>
-    </div>
+      </SnackbarProvider>
+    </GlobalStateContext.Provider>
   );
 };
 
