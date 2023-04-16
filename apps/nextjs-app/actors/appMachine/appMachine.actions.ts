@@ -1,5 +1,5 @@
 import { assign } from 'xstate';
-import { AppMachineContext } from '@/actors/appMachine/appMachine.types';
+import { AppMachineContext, SetActiveTabEvent } from '@/actors/appMachine/appMachine.types';
 
 // TODO: change name to mutateTaskLocally
 export const mutateTask = assign({
@@ -15,4 +15,12 @@ export const mutateTask = assign({
       return task;
     });
   },
+});
+
+export const toggleSidebar = assign({
+  sidebarOpen: (context: AppMachineContext) => !context.sidebarOpen,
+});
+
+export const setActiveTab = assign({
+  activeTab: (context: AppMachineContext, event: SetActiveTabEvent) => event.payload,
 });
