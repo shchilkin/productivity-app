@@ -16,6 +16,15 @@ export const Default = Template.bind({});
 Default.args = {
   id: 1,
   status: false,
-  description: 'description',
-  title: 'title',
+  description: 'This task is active',
+  title: 'Active task',
+};
+
+export const Completed = Template.bind({});
+
+Completed.args = {
+  id: 1,
+  status: true,
+  description: 'This item shows up in the completed tab',
+  title: 'Completed task',
 };
