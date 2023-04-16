@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { TaskProps } from '@/components/Task';
 import { GlobalStateContext } from '@/components/AppClientSide';
+import Checkbox from '@/components/common/checkbox';
 
 const TaskPreview: React.FunctionComponent<TaskProps> = ({ title, description, status, id, ownerId }) => {
   const [newTitle, setNewTitle] = React.useState(title);
@@ -26,15 +27,7 @@ const TaskPreview: React.FunctionComponent<TaskProps> = ({ title, description, s
       <div className={'flex flex-row w-full'}>
         <div className={'flex flex-row w-full items-start'}>
           <div className={'flex flex-row items-start w-full gap-3'}>
-            <input
-              className={'mt-2'}
-              type={'checkbox'}
-              checked={status}
-              onChange={() => send('TOGGLE_ACTIVE_TASK', { id: id })}
-              autoFocus
-              width={24}
-              height={24}
-            />
+            <Checkbox checked={status} onChange={() => send('TOGGLE_TASK', { id: id })} />
             <div className={'flex flex-col'}>
               <input
                 className={'text-lg font-semibold grow w-full'}

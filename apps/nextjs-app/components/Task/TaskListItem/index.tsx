@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { TaskProps } from '@/components/Task';
 import { GlobalStateContext } from '@/components/AppClientSide';
+import Checkbox from '@/components/common/checkbox';
 
 const TaskListItem: React.FunctionComponent<TaskProps> = ({ id, status, description, title }) => {
   const globalServices = useContext(GlobalStateContext);
@@ -16,15 +17,9 @@ const TaskListItem: React.FunctionComponent<TaskProps> = ({ id, status, descript
       <div className={'flex flex-row w-full'}>
         <div className={'flex flex-row w-full items-start'}>
           <div className={'flex flex-row items-start w-full gap-3'}>
-            <input
-              className={'mt-2'}
-              type={'checkbox'}
-              checked={status}
-              onChange={() => send('TOGGLE_TASK', { id: id })}
-              autoFocus
-              width={24}
-              height={24}
-            />
+            <div className={'mt-.5'}>
+              <Checkbox checked={status} onChange={() => send('TOGGLE_TASK', { id: id })} />
+            </div>
             <div className={'flex flex-col'} onClick={() => send('SELECT_TASK', { id: id })}>
               <h1 className={`text-lg font-semibold grow w-full ${status && 'text-decoration-line: line-through'}`}>
                 {title}
