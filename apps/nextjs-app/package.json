@@ -1,6 +1,6 @@
 {
   "name": "@productivity-app/nextjs-app",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,8 +10,9 @@
     "test": "jest --watch",
     "test:ci": "jest --ci",
     "generate-schema": "npx prisma generate --schema=../../prisma/schema.prisma",
-    "storybook": "storybook dev",
-    "build-storybook": "storybook build"
+    "storybook": "storybook dev -p 9009",
+    "build-storybook": "storybook build",
+    "serve-storybook": ""
   },
   "dependencies": {
     "@next/font": "^13.2.4",
@@ -44,12 +45,14 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
+    "@faker-js/faker": "^7.6.0",
     "@storybook/addon-actions": "^7.0.5",
     "@storybook/addon-essentials": "^7.0.5",
     "@storybook/addon-interactions": "^7.0.5",
     "@storybook/addon-links": "^7.0.5",
     "@storybook/addon-mdx-gfm": "^7.0.5",
     "@storybook/addon-styling": "2.0.0",
+    "@storybook/addons": "^7.0.6",
     "@storybook/cli": "^7.0.5",
     "@storybook/nextjs": "^7.0.5",
     "@storybook/react": "^7.0.5",
@@ -62,6 +65,8 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@types/testing-library__react": "^10.2.0",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@xstate/inspect": "^0.8.0",
+    "@xstate/react": "^3.2.1",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^8.3.0",
     "eslint-config-prettier": "^8.8.0",
@@ -74,6 +79,8 @@
     "prettier": "^2.8.7",
     "prisma": "^4.12.0",
     "storybook": "^7.0.5",
+    "storybook-addon-next-router": "^4.0.2",
+    "storybook-xstate-addon": "^2.3.6",
     "tailwindcss": "^3.2.7",
     "ts-node": "^10.9.1"
   }
