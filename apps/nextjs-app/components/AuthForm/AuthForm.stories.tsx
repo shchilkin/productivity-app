@@ -1,17 +1,17 @@
 import AuthForm from '@/components/AuthForm/index';
 
-import { ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 // TODO: Implement Next.js Router for Storybook
 // this story does not work now in storybook
 
-const config = {
-  title: 'AuthForm',
+const meta: Meta = {
+  title: 'Auth/AuthForm',
   component: AuthForm,
 };
-export default config;
+export default meta;
 
-const Template: ComponentStory<typeof AuthForm> = args => <AuthForm {...args} />;
+const Template: StoryFn<typeof AuthForm> = args => <AuthForm {...args} />;
 
 export const SignIn = Template.bind({});
 SignIn.args = {
