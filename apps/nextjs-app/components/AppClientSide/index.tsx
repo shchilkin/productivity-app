@@ -33,8 +33,6 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({ tasks }) =
 
   const [state] = useActor(appService);
 
-  const addingNewTask = state.matches('createTask');
-
   return (
     <GlobalStateContext.Provider value={{ appService }}>
       <SnackbarProvider autoHideDuration={3000}>
@@ -53,7 +51,7 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({ tasks }) =
               </div>
             </main>
           </div>
-          {addingNewTask && <AddNewTaskDialog />}
+          <AddNewTaskDialog />
           <FloatingActionButton />
         </div>
       </SnackbarProvider>

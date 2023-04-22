@@ -5,6 +5,7 @@ import idGenerator from '@/utils/idGenerator/idGenerator';
 import Task from '@/components/Task';
 import { GlobalStateContext } from '@/components/AppClientSide';
 import { useActor } from '@xstate/react';
+import TaskListEmptyState from '@/components/TaskListEmptyState/TaskListEmptyState';
 
 const localIdGenerator = idGenerator();
 const TaskList = () => {
@@ -18,6 +19,8 @@ const TaskList = () => {
 
   const [tasks, setTasks] = React.useState(state.context.tasks);
 
+  console.log('tasks', tasks);
+
   console.log('activeTab', activeTab);
 
   useEffect(() => {
@@ -25,6 +28,8 @@ const TaskList = () => {
   }, [state.context.tasks]);
 
   if (!tasks) return <div>no data</div>;
+
+  if (tasks.length === 0) return <TaskListEmptyState />;
 
   return (
     <ul className={'w-full mt-4'}>

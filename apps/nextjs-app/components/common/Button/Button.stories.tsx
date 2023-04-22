@@ -1,5 +1,5 @@
 import { ComponentStory } from '@storybook/react';
-import Button from '@/components/Button/index';
+import Button from '@/components/common/Button/index';
 
 const config = {
   title: 'Common/Button',

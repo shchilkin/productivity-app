@@ -1,15 +1,22 @@
 import TaskListItem from '@/components/Task/TaskListItem/index';
 import { TaskProps } from '@/components/Task';
-import { ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
-const config = {
-  title: 'Task/TaskListItem',
+const meta: Meta = {
+  title: 'App/Task/TaskListItem',
   component: TaskListItem,
+  decorators: [
+    (Story: StoryFn) => (
+      <div className="border-gray-100 border-2 px-2 py-1 rounded-md">
+        <Story />
+      </div>
+    ),
+  ],
 };
 
-export default config;
+export default meta;
 
-const Template: ComponentStory<typeof TaskListItem> = (args: TaskProps) => <TaskListItem {...args} />;
+const Template: StoryFn<typeof TaskListItem> = (args: TaskProps) => <TaskListItem {...args} />;
 
 export const Default = Template.bind({});
 

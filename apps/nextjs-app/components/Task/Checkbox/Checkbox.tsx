@@ -1,10 +1,19 @@
 import React from 'react';
 
 export interface CheckboxProps {
+  /**
+   * onChange handler
+   * */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  /**
+   * Represents checkbox state
+   */
   checked: boolean;
 }
 
+/**
+ * Checkbox component is responsible for showing task state
+ * */
 const Checkbox: React.FunctionComponent<CheckboxProps> = ({ onChange, checked }) => {
   return (
     <input

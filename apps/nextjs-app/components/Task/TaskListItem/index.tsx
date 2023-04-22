@@ -1,8 +1,15 @@
 import React, { useContext } from 'react';
 import { TaskProps } from '@/components/Task';
 import { GlobalStateContext } from '@/components/AppClientSide';
-import Checkbox from '@/components/common/checkbox';
+import Checkbox from 'components/Task/Checkbox';
 
+/**
+ * TaskListItem - Component to display a task in a list
+ * @param id - ID of the task
+ * @param status - Status of the task
+ * @param description - Description of the task
+ * @param title - Title of the task
+ */
 const TaskListItem: React.FunctionComponent<TaskProps> = ({ id, status, description, title }) => {
   const globalServices = useContext(GlobalStateContext);
 
@@ -24,7 +31,7 @@ const TaskListItem: React.FunctionComponent<TaskProps> = ({ id, status, descript
               <h1 className={`text-lg font-semibold grow w-full ${status && 'text-decoration-line: line-through'}`}>
                 {title}
               </h1>
-              <h1 className={'text-gray-600'}>{description}</h1>
+              <p className={'text-gray-600'}>{description}</p>
             </div>
           </div>
         </div>

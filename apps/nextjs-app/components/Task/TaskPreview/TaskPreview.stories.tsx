@@ -4,7 +4,7 @@ import { TaskProps } from '@/components/Task';
 import { ComponentStory } from '@storybook/react';
 
 const config = {
-  title: 'Task/TaskPreview',
+  title: 'App/Task/TaskPreview',
   component: TaskPreview,
 };
 

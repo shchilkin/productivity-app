@@ -9,13 +9,19 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
 
   const [state] = useActor(globalServices.appService);
 
+  const addingNewTask = state.matches('createTask');
+
   console.log(state, 'state');
 
   const dialogService = state.children.addNewTaskService;
 
+  console.log(dialogService, 'dialogService');
+
   const [dialogServiceState] = useActor(dialogService);
 
-  const canSave = dialogServiceState.matches('canSave');
+  const canSave = dialogServiceState && dialogServiceState.matches('canSave');
+
+  if (!addingNewTask) return null;
 
   return (
     <div className={'fixed w-screen h-screen bg-gray-800/50 bg-opacity-[50] z-[51]'}>
