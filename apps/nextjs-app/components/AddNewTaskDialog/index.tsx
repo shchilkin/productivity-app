@@ -17,9 +17,9 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
 
   console.log(dialogService, 'dialogService');
 
-  const [dialogServiceState] = useActor(dialogService);
+  // const [dialogServiceState] = useActor(dialogService);
 
-  const canSave = dialogServiceState && dialogServiceState.matches('canSave');
+  // const canSave = dialogServiceState && dialogServiceState.matches('canSave');
 
   if (!addingNewTask) return null;
 
@@ -50,9 +50,9 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
         />
         <section className={'flex w-full flex-row-reverse mt-4'}>
           <button
-            disabled={!canSave}
+            // disabled={!canSave}
             onClick={() => dialogService.send('SAVE_TASK')}
-            className={`grow  ${canSave ? 'bg-amber-300' : 'bg-gray-300'}`}
+            // className={`grow  ${canSave ? 'bg-amber-300' : 'bg-gray-300'}`}
           >
             Save
           </button>

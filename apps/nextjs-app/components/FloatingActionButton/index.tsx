@@ -20,6 +20,8 @@ const FloatingActionButton: React.FunctionComponent = () => {
 
   if (state.matches('editTask')) return null;
 
+  if (state.context.sidebarOpen) return null;
+
   return (
     <div>
       <button

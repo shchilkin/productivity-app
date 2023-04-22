@@ -33,6 +33,8 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({ tasks }) =
 
   const [state] = useActor(appService);
 
+  const isSidebarOpen = state.context.sidebarOpen;
+
   return (
     <GlobalStateContext.Provider value={{ appService }}>
       <SnackbarProvider autoHideDuration={3000}>
@@ -42,9 +44,9 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({ tasks }) =
             state.matches('editTask') ? 'bg-gray-200' : 'bg-white'
           }`}
         >
-          <div className={'flex flex-row grow mx-[16px]'}>
+          <div className={`flex flex-row grow ${isSidebarOpen ? 'mr-[16px]' : ' mx-[16px]'}`}>
             <Sidebar />
-            <main className={`flex flex-col w-full grow min-w-[240px]`}>
+            <main className={`flex flex-col w-full grow min-w-[240px] ${isSidebarOpen ? 'ml-4' : ''}`}>
               <AppHeader />
               <div className={'w-full h-full flex items-top justify-center'}>
                 <TaskList />
