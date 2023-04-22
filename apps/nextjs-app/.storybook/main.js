@@ -7,7 +7,6 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    'storybook-addon-next-router',
     '@storybook/addon-interactions',
     'storybook-xstate-addon/preset',
     {
