@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { TaskProps } from '@/components/Task';
 import { GlobalStateContext } from '@/components/AppClientSide';
-import Checkbox from '@/components/common/checkbox';
+import Checkbox from 'components/Task/Checkbox';
 
 const TaskPreview: React.FunctionComponent<TaskProps> = ({ title, description, status, id, ownerId }) => {
   const [newTitle, setNewTitle] = React.useState(title);
