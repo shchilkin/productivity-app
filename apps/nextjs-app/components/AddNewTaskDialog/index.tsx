@@ -5,23 +5,14 @@ import { useActor } from '@xstate/react';
 import { GlobalStateContext } from '@/components/AppClientSide';
 
 const AddNewTaskDialog: React.FunctionComponent = () => {
-  const globalServices = useContext(GlobalStateContext);
+  const appService = useContext(GlobalStateContext).appService;
+  const [state] = useActor(appService);
 
-  const [state] = useActor(globalServices.appService);
-
-  const addingNewTask = state.matches('createTask');
-
-  console.log(state, 'state');
-
-  const dialogService = state.children.addNewTaskService;
-
-  console.log(dialogService, 'dialogService');
+  const dialogService = state.children.addNewTask;
 
   const [dialogServiceState] = useActor(dialogService);
 
-  const canSave = dialogServiceState && dialogServiceState.matches('canSave');
-
-  if (!addingNewTask) return null;
+  const canSave = dialogServiceState.matches('canSave');
 
   return (
     <div className={'fixed w-screen h-screen bg-gray-800/50 bg-opacity-[50] z-[51]'}>
