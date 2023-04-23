@@ -53,7 +53,7 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({ tasks }) =
               </div>
             </main>
           </div>
-          <AddNewTaskDialog />
+          {state.matches('createTask') && <AddNewTaskDialog />}
           <FloatingActionButton />
         </div>
       </SnackbarProvider>
