@@ -60,7 +60,6 @@ const appMachine = createMachine<AppMachineContext>(
           src: 'sendUpdatedTaskDataToServerService',
           onDone: {
             target: 'idle',
-            actions: (context, event) => console.log(event, 'toggle task'),
           },
           onError: { target: 'idle', actions: 'showError' },
         },
@@ -84,7 +83,7 @@ const appMachine = createMachine<AppMachineContext>(
       },
       createTask: {
         invoke: {
-          id: 'addNewTaskService',
+          id: 'addNewTask',
           src: 'addNewTaskService',
           onDone: [
             {
