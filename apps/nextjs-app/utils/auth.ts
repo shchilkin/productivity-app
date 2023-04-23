@@ -1,10 +1,9 @@
-import { fetcher } from '@/utils/api/fetcher';
 import bcrypt from 'bcrypt';
 import { jwtVerify, SignJWT } from 'jose';
 import { User } from '@prisma/client';
 import { db } from '@/utils/db';
-import { ReadonlyRequestCookies } from 'next/dist/server/app-render';
 import { RequestCookies } from 'next/dist/server/web/spec-extension/cookies';
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 
 export const hashPassword = (password: string) => bcrypt.hash(password, 10);
 
