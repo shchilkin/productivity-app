@@ -98,8 +98,8 @@ const Sidebar = () => {
   const { sidebarOpen, activeTab } = state.context;
 
   const variants = {
-    open: { x: 0, transition: { duration: 0.2, ease: 'easeIn' } },
-    closed: { x: -300, transition: { duration: 0.2, ease: 'easeOut' } },
+    visible: { x: 0, transition: { duration: 0.2, ease: 'easeIn' } },
+    hidden: { x: -300, transition: { duration: 0.2, ease: 'easeOut' } },
   };
 
   return (
@@ -120,10 +120,10 @@ const Sidebar = () => {
         {sidebarOpen && (
           <motion.aside
             key="sidebar"
-            initial="closed"
-            animate="open"
+            initial="hidden"
+            animate="visible"
             variants={variants}
-            exit="closed"
+            exit="hidden"
             transition={{ duration: 0.2, ease: 'easeInOut' }}
             className="fixed sm:static top-0 left-0 z-40 max-w-xs w-64 transition-transform-translate-x-full sm:translate-x-0 h-screen"
           >
