@@ -22,6 +22,7 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
         <input
           className={'font-semibold text-lg'}
           placeholder={'Task name'}
+          id={'task-name'}
           onChange={event => {
             // @ts-expect-error TODO: add types
             dialogService.send('UPDATE_LOCAL_CONTEXT', {
@@ -30,6 +31,7 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
           }}
         />
         <input
+          id={'task-description'}
           className={'text-gray-600'}
           placeholder={'Description'}
           onChange={event => {
@@ -41,6 +43,7 @@ const AddNewTaskDialog: React.FunctionComponent = () => {
         />
         <section className={'flex w-full flex-row-reverse mt-4'}>
           <button
+            id={'save-task'}
             disabled={!canSave}
             onClick={() => dialogService.send('SAVE_TASK')}
             className={`grow  ${canSave ? 'bg-amber-300' : 'bg-gray-300'}`}
