@@ -6,6 +6,8 @@ import Task from '@/components/Task';
 import { GlobalStateContext } from '@/components/AppClientSide';
 import { useActor } from '@xstate/react';
 import TaskListEmptyState from '@/components/TaskListEmptyState/TaskListEmptyState';
+import AddNewTaskButton from '@/components/AddNewTaskButton';
+import TaskCreator from '@/components/TaskCreator/TaskCreator';
 
 const localIdGenerator = idGenerator();
 const TaskList = () => {
@@ -31,6 +33,8 @@ const TaskList = () => {
 
   if (tasks.length === 0) return <TaskListEmptyState />;
 
+  console.log(state.value);
+
   return (
     <ul className={'w-full mt-4'}>
       {tasks
@@ -54,6 +58,7 @@ const TaskList = () => {
         .map(task => (
           <Task key={task.localId} {...task} />
         ))}
+      <li>{state.matches('createTask') ? <TaskCreator /> : <AddNewTaskButton />}</li>
     </ul>
   );
 };

@@ -2,11 +2,9 @@
 
 import React, { createContext } from 'react';
 import TaskList from '@/components/TaskList';
-import FloatingActionButton from '@/components/FloatingActionButton';
 import { Task } from '@prisma/client';
 import { useActor, useInterpret } from '@xstate/react';
 import { InterpreterFrom } from 'xstate';
-import AddNewTaskDialog from '@/components/AddNewTaskDialog';
 import { appMachine } from '@/actors';
 import AppHeader from '@/components/AppHeader';
 import { SnackbarProvider } from 'notistack';
@@ -55,8 +53,7 @@ const AppClientSide: React.FunctionComponent<AppClientSideProps> = ({ tasks }) =
               </div>
             </main>
           </div>
-          {state.matches('createTask') && <AddNewTaskDialog />}
-          <FloatingActionButton />
+          {/*{state.matches('createTask') && <AddNewTaskDialog/>}*/}
         </div>
       </SnackbarProvider>
     </GlobalStateContext.Provider>
