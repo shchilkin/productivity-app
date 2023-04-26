@@ -1,11 +1,15 @@
 import React from 'react';
 
 export interface InputProps {
-  props: React.InputHTMLAttributes<HTMLInputElement>;
+  /** Optional hint that describes the expected value of an input field */
+  placeholder?: string;
 }
 
+const inputStyles = ['border', 'border-gray-300', 'rounded-md', 'p-2'].join(' ');
+
 const Input: React.FunctionComponent<InputProps> = ({ ...props }) => {
-  return <input className={'border border-gray-300 rounded-md p-2'} {...props} />;
+  // convert className to input Styles style
+  return <input className={inputStyles} {...props} />;
 };
 
 export default Input;

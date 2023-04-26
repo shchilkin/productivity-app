@@ -6,6 +6,26 @@ Productivity app for managing your tasks.
 
 this project uses `yarn` as package manager
 
+## Available Scripts
+
+In the project directory, you can run:
+
+```bash
+yarn - installs dependencies.
+yarn dev - runs the app in the development mode.
+yarn build - builds the app for production to the .next folder.
+yarn start - starts the production server.
+yarn lint - runs eslint.
+yarn lint:fix - runs eslint with fix.
+yarn test - runs jest.
+yarn test:ci - runs jest in ci mode.
+yarn generate-schema - generates prisma schema.
+yarn storybook - runs storybook.
+yarn build-storybook - builds storybook.
+yarn cypress:open - runs cypress in interactive mode.
+yarn cypress:run - runs cypress in headless mode.
+```
+
 ## Getting Started
 
 ### Add environment variables to `.env`:
