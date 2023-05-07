@@ -10,21 +10,19 @@ this project uses `yarn` as package manager
 
 In the project directory, you can run:
 
-```bash
-yarn - installs dependencies.
-yarn dev - runs the app in the development mode.
-yarn build - builds the app for production to the .next folder.
-yarn start - starts the production server.
-yarn lint - runs eslint.
-yarn lint:fix - runs eslint with fix.
-yarn test - runs jest.
-yarn test:ci - runs jest in ci mode.
-yarn generate-schema - generates prisma schema.
-yarn storybook - runs storybook.
-yarn build-storybook - builds storybook.
-yarn cypress:open - runs cypress in interactive mode.
-yarn cypress:run - runs cypress in headless mode.
-```
+- `yarn` - installs dependencies.
+- `yarn build` - builds the app for production to the .next folder.
+- `yarn dev` - runs the app in the development mode.
+- `yarn start` - starts the production server.
+- `yarn lint` - runs eslint.
+- `yarn lint:fix` - runs eslint with fix.
+- `yarn test` - runs jest.
+- `yarn test:ci` - runs jest in ci mode.
+- `yarn generate-schema` - generates prisma schema.
+- `yarn storybook` - runs storybook.
+- `yarn build-storybook` - builds storybook.
+- `yarn cypress:open` - runs cypress in interactive mode.
+- `yarn cypress:run` - runs cypress in headless mode.
 
 ## Getting Started
 
@@ -36,14 +34,10 @@ JWT_SECRET - secret key for JWT
 COOKIE_NAME - name of how token will be stored in cookie
 ```
 
-```bash
 First, run the development server:
 
-npm run dev
-# or
+```shell
 yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
