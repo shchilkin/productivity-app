@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useActor } from '@xstate/react';
 import { AuthContext } from '@/components/AuthContextWrapper';
+import Input from "@/components/common/Input";
 
 interface AuthFormContent {
   title: string;
@@ -97,8 +98,7 @@ const AuthForm: React.FunctionComponent = () => {
           <>
             <div className={'flex flex-col w-full pb-4'}>
               <label htmlFor="name">Name</label>
-              <input
-                className={'border border-gray-300 rounded-md p-2'}
+              <Input
                 type="text"
                 name="name"
                 id="name"
@@ -112,8 +112,7 @@ const AuthForm: React.FunctionComponent = () => {
             </div>
             <div className={'flex flex-col w-full pb-4'}>
               <label htmlFor="surname">Surname</label>
-              <input
-                className={'border border-gray-300 rounded-md p-2'}
+              <Input
                 type="text"
                 name="surname"
                 id="surname"
@@ -129,8 +128,7 @@ const AuthForm: React.FunctionComponent = () => {
         )}
         <div className={'flex flex-col w-full pb-4'}>
           <label htmlFor="email">Email</label>
-          <input
-            className={'border border-gray-300 rounded-md p-2'}
+          <Input
             type="email"
             name="email"
             id="email"
@@ -144,8 +142,7 @@ const AuthForm: React.FunctionComponent = () => {
         </div>
         <div className={'flex flex-col w-full pb-4'}>
           <label htmlFor="password">Password</label>
-          <input
-            className={'border border-gray-300 rounded-md p-2'}
+          <Input
             type="password"
             name="password"
             id="password"

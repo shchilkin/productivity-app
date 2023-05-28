@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useContext } from 'react';
-import { HamburgerMenuIcon, PlusIcon, HomeIcon } from '@radix-ui/react-icons';
+import { HamburgerMenuIcon, HomeIcon, PlusIcon } from '@radix-ui/react-icons';
 import { GlobalStateContext } from '@/components/AppClientSide';
 import { useActor } from '@xstate/react';
 

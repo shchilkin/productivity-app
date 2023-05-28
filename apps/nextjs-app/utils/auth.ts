@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { jwtVerify, SignJWT } from 'jose';
+import { SignJWT, jwtVerify } from 'jose';
 import { User } from '@prisma/client';
 import { db } from '@/utils/db';
 import { RequestCookies } from 'next/dist/server/web/spec-extension/cookies';

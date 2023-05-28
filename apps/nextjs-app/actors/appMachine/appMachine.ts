@@ -1,4 +1,4 @@
-import { createMachine, assign } from 'xstate';
+import { assign, createMachine } from 'xstate';
 import { createTask, deleteTask, updateTask } from '@/utils/api/fetcher';
 import { addNewTaskService } from '@/actors/addNewTaskMachine/addNewTaskMachine';
 import { mutateTask, setActiveTab, toggleSidebar } from '@/actors/appMachine/appMachine.actions';

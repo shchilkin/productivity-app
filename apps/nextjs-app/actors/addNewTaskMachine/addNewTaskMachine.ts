@@ -1,5 +1,5 @@
 import { createMachine } from 'xstate';
-import { cannotSave, canSave } from '@/actors/addNewTaskMachine/addNewTaskMachine.guards';
+import { canSave, cannotSave } from '@/actors/addNewTaskMachine/addNewTaskMachine.guards';
 import { addNewTaskMachine } from '@/actors/addNewTaskMachine/addNewTaskMachine.machine';
 import { AddNewTaskMachineContext, AddNewTaskMachineState } from '@/actors/addNewTaskMachine/addNewTaskMachine.types';
 

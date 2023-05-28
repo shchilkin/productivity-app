@@ -88,7 +88,7 @@
 import React, { useContext } from 'react';
 import { GlobalStateContext } from '@/components/AppClientSide';
 import { useActor } from '@xstate/react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Sidebar = () => {
   const appService = useContext(GlobalStateContext).appService;
