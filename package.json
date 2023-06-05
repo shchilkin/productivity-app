@@ -12,7 +12,7 @@
     "apps/*"
   ],
   "scripts": {
-    "dev:nextjs-app": "lerna run dev --scope @todo-list/nextjs-app",
+    "dev:nextjs-app": "lerna run dev --scope @productivity-app/nextjs-app",
     "build:nextjs-app": "lerna run build --scope @todo-list/nextjs-app",
     "prepare": "husky install",
     "test": "lerna run test:ci --stream",
