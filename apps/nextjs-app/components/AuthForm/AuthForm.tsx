@@ -3,9 +3,9 @@
 import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { useActor } from '@xstate/react';
 import { AuthContext } from '@/components/AuthContextWrapper';
+import { Input, Button } from 'components';
 
 interface AuthFormContent {
   title: string;
@@ -14,31 +14,20 @@ interface AuthFormContent {
   buttonLabel: string;
 }
 
-const variants = {
-  open: {
-    opacity: 1,
-    scale: 1,
-  },
-  closed: {
-    opacity: 0.5,
-    scale: 0.98,
-  },
-};
-
 const registerContent: AuthFormContent = {
-  title: 'Create new account',
+  title: 'Sign in to Productivity App',
   linkURL: '/sign-in',
   linkText: 'Already have an account?',
   buttonLabel: 'Create account',
 };
 
 const signInContent: AuthFormContent = {
-  title: 'Welcome back',
+  title: 'Sign up to Productivity App',
   linkURL: '/register',
   linkText: "Don't have an account?",
   buttonLabel: 'sign in',
 };
-const AuthForm: React.FunctionComponent = () => {
+export const AuthForm: React.FunctionComponent = () => {
   const router = useRouter();
 
   const authService = useContext(AuthContext).authService;
@@ -91,86 +80,65 @@ const AuthForm: React.FunctionComponent = () => {
 
   return (
     <div className={'flex flex-col grow p8 mx-[16px]'}>
-      <h2 className={'text-2xl font-bold'}>{content.title}</h2>
+      <h2 className={'text-2xl font-bold mb-2'}>{content.title}</h2>
       <form onSubmit={handleSubmit}>
         {registerMode && (
           <>
-            <div className={'flex flex-col w-full pb-4'}>
-              <label htmlFor="name">Name</label>
-              <input
-                className={'border border-gray-300 rounded-md p-2'}
-                type="text"
-                name="name"
-                id="name"
-                onChange={event => {
-                  send({
-                    type: 'UPDATE_NAME',
-                    payload: event.target.value,
-                  });
-                }}
-              />
-            </div>
-            <div className={'flex flex-col w-full pb-4'}>
-              <label htmlFor="surname">Surname</label>
-              <input
-                className={'border border-gray-300 rounded-md p-2'}
-                type="text"
-                name="surname"
-                id="surname"
-                onChange={event => {
-                  send({
-                    type: 'UPDATE_SURNAME',
-                    payload: event.target.value,
-                  });
-                }}
-              />
-            </div>
+            <Input
+              label={'Name'}
+              type="text"
+              name="name"
+              id="name"
+              onChange={event => {
+                send({
+                  type: 'UPDATE_NAME',
+                  payload: event.target.value,
+                });
+              }}
+            />
+            <Input
+              label={'Surname'}
+              type="text"
+              name="surname"
+              id="surname"
+              onChange={event => {
+                send({
+                  type: 'UPDATE_SURNAME',
+                  payload: event.target.value,
+                });
+              }}
+            />
           </>
         )}
-        <div className={'flex flex-col w-full pb-4'}>
-          <label htmlFor="email">Email</label>
-          <input
-            className={'border border-gray-300 rounded-md p-2'}
-            type="email"
-            name="email"
-            id="email"
-            onChange={event => {
-              send({
-                type: 'UPDATE_EMAIL',
-                payload: event.target.value,
-              });
-            }}
-          />
-        </div>
-        <div className={'flex flex-col w-full pb-4'}>
-          <label htmlFor="password">Password</label>
-          <input
-            className={'border border-gray-300 rounded-md p-2'}
-            type="password"
-            name="password"
-            id="password"
-            onChange={event => {
-              send({
-                type: 'UPDATE_PASSWORD',
-                payload: event.target.value,
-              });
-            }}
-          />
-        </div>
-        <motion.button
-          animate={canAuthenticate || authenticating ? 'open' : 'closed'}
-          variants={variants}
-          disabled={authenticating || !canAuthenticate}
-          transition={{ duration: 0.5 }}
-          className={`px-8 py-2 rounded-md mb-4 w-full disabled:cursor-not-allowed ${
-            authenticating ? 'bg-gray-400 text-black' : 'bg-amber-500 text-black'
-          }}`}
-          type="submit"
-        >
+        <Input
+          label={'Email'}
+          type={'email'}
+          name={'email'}
+          id="email"
+          onChange={event => {
+            send({
+              type: 'UPDATE_EMAIL',
+              payload: event.target.value,
+            });
+          }}
+        />
+        <Input
+          label={'Password'}
+          type={'password'}
+          name={'password'}
+          id="password"
+          onChange={event => {
+            send({
+              type: 'UPDATE_PASSWORD',
+              payload: event.target.value,
+            });
+          }}
+        />
+        <Button style={{ marginTop: 8 }} disabled={authenticating || !canAuthenticate} type={'submit'}>
           {authenticating ? 'Loading' : content.buttonLabel}
-        </motion.button>
+        </Button>
       </form>
-      <div>
+      <div style={{ marginTop: 12 }}>
         <span>
           <Link href={content.linkURL} className="text-blue-600 font-bold">
             {content.linkText}
@@ -180,5 +148,3 @@ const AuthForm: React.FunctionComponent = () => {
     </div>
   );
 };
-
-export default AuthForm;
