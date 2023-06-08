@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root {
+    --primary: #FFD568;
+    --primary-tint-100: #ffd977;
+    --primary-tint-200: #ffdd86;
+    --primary-tint-300: #ffe295;
+    --primary-tint-400: #ffe6a4;
+    --primary-tint-500: #ffeab4;
+    --primary-tint-600: #ffeec3;
+    --primary-tint-700: #fff2d2;
+    --primary-tint-800: #fff7e1;
+    --primary-tint-900: #fffbf0;
+    --primary-shade-100: #e6c05e;
+    --primary-shade-200: #ccaa53;
+    --primary-shade-300: #b39549;
+    --primary-shade-400: #99803e;
+    --primary-shade-500: #806b34;
+    --primary-shade-600: #66552a;
+    --primary-shade-700: #4c401f;
+    --primary-shade-800: #332b15;
+    --primary-shade-900: #19150a;
+
+    --neutral-100: #f0f0f0;
+}
