@@ -1,26 +1,31 @@
-import AuthForm from '@/components/AuthForm/index';
-
-import { Meta, StoryFn } from '@storybook/react';
+import { AuthForm } from 'components';
+import { Meta, StoryObj } from '@storybook/react';
 import WithAuthServices from '@/.storybook/decorators/withAuthServices';
-
-// TODO: Implement Next.js Router for Storybook
-// this story does not work now in storybook
 
 const meta: Meta = {
   title: 'Auth/AuthForm',
   component: AuthForm,
-  decorators: [WithAuthServices],
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+    controls: { exclude: ['type'] },
+  },
 };
 export default meta;
 
-const Template: StoryFn<typeof AuthForm> = args => <AuthForm {...args} />;
+type Story = StoryObj<typeof AuthForm>;
 
-export const SignIn = Template.bind({});
-SignIn.args = {
-  type: 'sign-in',
+export const SignIn: Story = {
+  decorators: [WithAuthServices('sign-in')],
+  args: {
+    type: 'sign-in',
+  },
 };
 
-export const Register = Template.bind({});
-Register.args = {
-  type: 'register',
+export const Register: Story = {
+  decorators: [WithAuthServices('register')],
+  args: {
+    type: 'register',
+  },
 };

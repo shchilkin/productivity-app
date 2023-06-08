@@ -1,6 +1,6 @@
 'use client';
 
-import AuthForm from '@/components/AuthForm';
+import { AuthForm } from 'components';
 import AuthContextWrapper from '@/components/AuthContextWrapper';
 
 const Register = () => {
